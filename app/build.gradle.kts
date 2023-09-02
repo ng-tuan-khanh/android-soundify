@@ -18,20 +18,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            isDebuggable = true
-            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"ac653b4746e14e34a00db6f7db7dd85c\"")
-            buildConfigField(
-                "String",
-                "SPOTIFY_REDIRECT_URI_AUTH",
-                "\"soundify://spotify-auth\""
-            )
-            buildConfigField(
-                "String",
-                "SPOTIFY_REDIRECT_URI_PKCE",
-                "\"soundify://spotify-pkce\""
-            )
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -76,4 +62,11 @@ dependencies {
 
     // Spotify Web API wrapper
     implementation("com.adamratzman:spotify-api-kotlin-core:4.0.2")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Gson
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }

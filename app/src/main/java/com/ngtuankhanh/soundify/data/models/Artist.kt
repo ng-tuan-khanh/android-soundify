@@ -1,8 +1,14 @@
 package com.ngtuankhanh.soundify.data.models
 
+import com.google.gson.annotations.SerializedName
+
 class Artist {
-    var Name: String? = null
+    @SerializedName("id")
     var ID: String? = null
+
+    @SerializedName("name")
+    var Name: String? = null
+
     var ImageURL: String? = null
     var TotalFollower: Int? = null
     var ListOfTracks: Array<Track> = arrayOf()
