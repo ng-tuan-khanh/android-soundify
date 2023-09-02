@@ -55,3 +55,35 @@ class UserPlaylistsRepository {
         })
     }
 }
+
+/*
+
+val repository = UserPlaylistsRepository()
+
+repository.fetchPlaylistIDs("YOUR_SPOTIFY_ACCESS_TOKEN", "TARGET_SPOTIFY_USER_ID",
+    onPlaylistIdsLoaded = { playlistIds ->
+        // Sử dụng `playlistIds` ngay trong callback
+        playlistIds.forEach { id ->
+            println("Fetched Playlist ID: $id")
+        }
+
+        // Vì storedPlaylistIds đã được cập nhật, bạn cũng có thể sử dụng nó ở đây
+        if (repository.storedPlaylistIds.isNotEmpty()) {
+            println("First stored Playlist ID: ${repository.storedPlaylistIds[0]}")
+        }
+    },
+    onError = { error ->
+        println("Error fetching playlist IDs: ${error.message}")
+    }
+)
+
+// Hoặc sử dụng `storedPlaylistIds` sau khi chắc chắn rằng dữ liệu đã được tải
+// (ví dụ: trong một hàm hoặc sự kiện khác của app)
+fun someOtherFunctionInYourApp() {
+    if (repository.storedPlaylistIds.isNotEmpty()) {
+        println("Using stored Playlist ID elsewhere in the app: ${repository.storedPlaylistIds[0]}")
+    }
+}
+
+
+*/
