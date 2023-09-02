@@ -1,4 +1,4 @@
-package com.ngtuankhanh.soundify.ui
+package com.ngtuankhanh.soundify.ui.activities
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
