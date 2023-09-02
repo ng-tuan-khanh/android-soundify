@@ -18,6 +18,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"ac653b4746e14e34a00db6f7db7dd85c\"")
+            buildConfigField(
+                "String",
+                "SPOTIFY_REDIRECT_URI_AUTH",
+                "\"soundify://spotify-auth\""
+            )
+            buildConfigField(
+                "String",
+                "SPOTIFY_REDIRECT_URI_PKCE",
+                "\"soundify://spotify-pkce\""
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -34,6 +48,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         dataBinding = true
         viewBinding = true
     }
@@ -51,8 +66,14 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // Dependencies for Media3 Exoplayer
+    // Media3 Exoplayer
     implementation("androidx.media3:media3-exoplayer:1.1.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.1.1")
     implementation("androidx.media3:media3-ui:1.1.1")
+
+    // Kotlinx coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    // Spotify Web API wrapper
+    implementation("com.adamratzman:spotify-api-kotlin-core:4.0.2")
 }
