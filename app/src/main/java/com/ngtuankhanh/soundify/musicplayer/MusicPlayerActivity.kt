@@ -4,13 +4,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.ActivityMusicPlayerBinding
 
 // This activity is used to test the MusicPlayer only
 
+enum class PlayerState {
+    PLAYING,
+    PAUSED
+}
+
 class MusicPlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMusicPlayerBinding
     private lateinit var player: ExoPlayer
+    private var playerState = PlayerState.PAUSED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,12 +26,31 @@ class MusicPlayerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         player = ExoPlayer.Builder(this).build()
-        binding.playerView.player = player
 
-        val mediaItem = MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
+        val mediaItem =
+            MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
         player.setMediaItem(mediaItem)
         player.prepare()
-        player.play()
+
+        binding.playButton.setOnClickListener {
+            playerState = if (playerState == PlayerState.PAUSED) {
+                player.play()
+                binding.playButton.setImageResource(R.drawable.pause_circle_fill)
+                PlayerState.PLAYING
+            } else {
+                player.pause()
+                binding.playButton.setImageResource(R.drawable.play_circle_fill)
+                PlayerState.PAUSED
+            }
+        }
+
+        binding.previousButton.setOnClickListener {
+            player.seekToPreviousMediaItem()
+        }
+
+        binding.nextButton.setOnClickListener {
+            player.seekToNextMediaItem()
+        }
     }
 
     override fun onDestroy() {
