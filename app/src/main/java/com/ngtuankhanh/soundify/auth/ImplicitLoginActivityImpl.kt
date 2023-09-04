@@ -7,6 +7,7 @@ import com.adamratzman.spotify.auth.implicit.AbstractSpotifyAppImplicitLoginActi
 import com.ngtuankhanh.soundify.BuildConfig
 import com.ngtuankhanh.soundify.ui.activities.MainActivity
 import com.ngtuankhanh.soundify.ui.SoundifyApplication
+import com.ngtuankhanh.soundify.ui.SpotifyApi
 
 class ImplicitLoginActivityImpl : AbstractSpotifyAppImplicitLoginActivity() {
     override val state: Int = 1337
@@ -16,7 +17,7 @@ class ImplicitLoginActivityImpl : AbstractSpotifyAppImplicitLoginActivity() {
     override fun getRequestingScopes(): List<SpotifyScope> = SpotifyScope.values().toList()
 
     override fun onSuccess(spotifyApi: SpotifyImplicitGrantApi) {
-        val credentialStore = (application as SoundifyApplication).credentialStore
+        val credentialStore = SpotifyApi.credentialStore
         credentialStore.setSpotifyApi(spotifyApi)
         startActivity(Intent(this, MainActivity::class.java))
     }
