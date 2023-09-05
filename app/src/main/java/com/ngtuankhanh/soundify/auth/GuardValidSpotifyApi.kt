@@ -7,14 +7,14 @@ import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
 import com.adamratzman.spotify.auth.implicit.startSpotifyImplicitLoginActivity
 import com.adamratzman.spotify.auth.pkce.startSpotifyClientPkceLoginActivity
 import com.ngtuankhanh.soundify.ui.SoundifyApplication
+import com.ngtuankhanh.soundify.ui.SpotifyApi
 import kotlinx.coroutines.runBlocking
 
-fun <T> Activity.guardValidSpotifyApi(
-    navigateTo: Class<out Activity>,
+fun <T> guardValidSpotifyApi(
     alreadyTriedToReauthenticate: Boolean = false,
     block: suspend (api: SpotifyClientApi) -> T
 ): T? {
-    val credentialStore = (this.application as SoundifyApplication).credentialStore
+    val credentialStore = SpotifyApi.credentialStore
     return runBlocking {
         try {
             val token = credentialStore.spotifyToken
@@ -38,26 +38,24 @@ fun <T> Activity.guardValidSpotifyApi(
                     } catch (e: SpotifyException.ReAuthenticationNeededException) {
                         e.printStackTrace()
                         return@runBlocking guardValidSpotifyApi(
-                            navigateTo = navigateTo,
                             alreadyTriedToReauthenticate = true,
                             block = block
                         )
                     } catch (e: IllegalArgumentException) {
                         e.printStackTrace()
                         return@runBlocking guardValidSpotifyApi(
-                            navigateTo = navigateTo,
                             alreadyTriedToReauthenticate = true,
                             block = block
                         )
                     }
                 } else {
-                    pkceNavigateTo = navigateTo
-                    startSpotifyClientPkceLoginActivity(PkceLoginActivityImpl::class.java)
+//                    pkceNavigateTo = navigateTo
+//                    startSpotifyClientPkceLoginActivity(PkceLoginActivityImpl::class.java)
                     null
                 }
             } else {
-                SpotifyDefaultCredentialStore.activityBackOnImplicitAuth = navigateTo
-                startSpotifyImplicitLoginActivity(ImplicitLoginActivityImpl::class.java)
+//                SpotifyDefaultCredentialStore.activityBackOnImplicitAuth = navigateTo
+//                startSpotifyImplicitLoginActivity(ImplicitLoginActivityImpl::class.java)
                 null
             }
         }

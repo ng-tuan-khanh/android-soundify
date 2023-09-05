@@ -8,6 +8,7 @@ import com.adamratzman.spotify.auth.pkce.AbstractSpotifyPkceLoginActivity
 import com.ngtuankhanh.soundify.BuildConfig
 import com.ngtuankhanh.soundify.ui.activities.MainActivity
 import com.ngtuankhanh.soundify.ui.SoundifyApplication
+import com.ngtuankhanh.soundify.ui.SpotifyApi
 
 internal var pkceNavigateTo: Class<out Activity>? = null
 class PkceLoginActivityImpl : AbstractSpotifyPkceLoginActivity() {
@@ -16,7 +17,7 @@ class PkceLoginActivityImpl : AbstractSpotifyPkceLoginActivity() {
     override val scopes = SpotifyScope.values().toList()
 
     override fun onSuccess(api: SpotifyClientApi) {
-        val credentialStore = (application as SoundifyApplication).credentialStore
+        val credentialStore = SpotifyApi.credentialStore
         credentialStore.setSpotifyApi(api)
         val navigateTo = pkceNavigateTo ?: MainActivity::class.java
         pkceNavigateTo = null
