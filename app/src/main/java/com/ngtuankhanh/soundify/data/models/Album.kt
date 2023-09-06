@@ -1,5 +1,7 @@
 package com.ngtuankhanh.soundify.data.models
 
+import com.ngtuankhanh.soundify.ui.models.Track
+
 class Album {
     var ID: String? = null
     var Name: String? = null

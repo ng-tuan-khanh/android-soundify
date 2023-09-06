@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ngtuankhanh.soundify.ui.adapters.FavoritePlaylistAdapter
 import com.ngtuankhanh.soundify.ui.adapters.SeriAlbumAdapter
@@ -12,6 +13,7 @@ import com.ngtuankhanh.soundify.databinding.FragmentHomeBinding
 import com.ngtuankhanh.soundify.ui.models.Image
 import com.ngtuankhanh.soundify.ui.models.PlaylistIcon
 import com.ngtuankhanh.soundify.data.models.DisplayAlbum
+import com.ngtuankhanh.soundify.ui.musicplayer.MusicPlayerViewModel
 
 class HomeFragment : Fragment() {
 
@@ -32,6 +34,11 @@ class HomeFragment : Fragment() {
         // Setup album series RecyclerView
         binding.homeFragmentAlbumSeriesRecyclerView.layoutManager = GridLayoutManager(context, 1)  // or any other desired layout manager
         binding.homeFragmentAlbumSeriesRecyclerView.adapter = albumAdapter
+
+
+        val homeViewModelFactory = HomeViewModel.Factory()
+        val homeViewModel =
+            ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
         return binding.root
     }
