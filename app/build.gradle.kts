@@ -74,6 +74,7 @@ dependencies {
 
     // Kotlinx coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
     // Spotify Web API wrapper
     implementation("com.adamratzman:spotify-api-kotlin-core:4.0.2")
