@@ -17,12 +17,21 @@ import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.streamingButton.setOnClickListener {
+            val isSelected = it.isSelected
+            it.isSelected = !isSelected
+            // Thực hiện logic play/pause tại đây
+        }
+
 
         hideNavigationBar()
 
@@ -41,6 +50,16 @@ class MainActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         decorView.systemUiVisibility = uiOptions
+    }
+
+    // Function to show the streaming bar
+    fun showStreamingBar() {
+        binding.streamingBar.visibility = View.VISIBLE
+    }
+
+    // Function to hide the streaming bar
+    fun hideStreamingBar() {
+        binding.streamingBar.visibility = View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {
