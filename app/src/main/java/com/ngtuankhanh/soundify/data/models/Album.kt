@@ -11,12 +11,3 @@ class Album {
     var releaseUpdate: String? = null
     var listOfTrack: List<Track> = listOf()
 }
-
-class DisplayAlbum {
-    var ID: String? = null
-    var Name: String? = null
-    var ArtistName: String? = null
-    var ImageURL: String? = null
-    var TotalTracks: Int? = null
-    var isSoundOn: Boolean = false
-}

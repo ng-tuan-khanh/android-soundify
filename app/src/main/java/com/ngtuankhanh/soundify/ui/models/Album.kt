@@ -9,3 +9,11 @@ class Album {
     lateinit var totalFollowers: Followers
     var listOfTracks: List<Track> = listOf()
 }
+class DisplayAlbum {
+    var id: String? = null
+    var name: String? = null
+    var artistName: String? = null
+    var imageUrl: String? = null
+    var totalTracks: Int? = null
+    var isSoundOn: Boolean = false
+}
