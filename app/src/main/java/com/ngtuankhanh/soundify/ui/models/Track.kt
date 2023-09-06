@@ -1,7 +1,7 @@
 package com.ngtuankhanh.soundify.ui.models
 
 class Track {
-    var Name: String? = null
-    var ID: String? = null
-    lateinit var BackgroundImage: Image
+    var name: String? = null
+    var id: String? = null
+    lateinit var backgroundImage: Image
 }

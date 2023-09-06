@@ -10,9 +10,78 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomNavigationView"
+        android:layout_above="@+id/streaming_container"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph" />
+
+    <LinearLayout
+        android:id="@+id/streaming_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@+id/bottomNavigationView">
+
+        <!-- Streaming bar layout components -->
+        <RelativeLayout
+            android:id="@+id/streaming_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/rounded_streaming_bar"
+            android:visibility="visible"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+            <!-- Your streaming bar components like song name, play/pause button etc. -->
+
+            <ImageView
+                android:id="@+id/streaming_song_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_home"
+                android:scaleType="fitCenter"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/streaming_song_image"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/streaming_song_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ten bai hat"
+                    android:textSize="18sp"
+                    android:textColor="@color/appWhite"/>
+
+                <TextView
+                    android:id="@+id/streaming_song_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ten ca si"
+                    android:textSize="14sp"
+                    android:textColor="@color/appWhite"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/streaming_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/selector_play_pause"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:background="#282828"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -21,6 +90,5 @@
         android:layout_alignParentBottom="true"
         android:background="#191414"
         app:menu="@menu/bottom_nav_menu" />
-
 
 </RelativeLayout>

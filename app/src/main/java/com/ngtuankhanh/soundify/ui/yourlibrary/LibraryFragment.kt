@@ -35,10 +35,10 @@ class LibraryFragment : Fragment() {
         // Thêm một số dummy data cho mục đích demo
         for (i in 1..15) {
             val item = LibraryItem().apply {
-                ID = i.toString()
-                Name = "Item $i"
-                Type = LibraryItemType.values()[i % 3] // sẽ trả về một trong PLAYLIST, ALBUM, hoặc ARTIST
-                AvatarImage = Image().apply { URL = uRL }
+                id = i.toString()
+                name = "Item $i"
+                type = LibraryItemType.values()[i % 3] // sẽ trả về một trong PLAYLIST, ALBUM, hoặc ARTIST
+                avatarImage = Image().apply { url = uRL }
             }
             items.add(item)
         }
