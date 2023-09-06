@@ -23,16 +23,16 @@ class FavoritePlaylistAdapter : ListAdapter<PlaylistIcon, FavoritePlaylistAdapte
 
     inner class FavoritePlaylistViewHolder(private val binding: ItemFavoriteGridBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(playlistIcon: PlaylistIcon) {
-            binding.playlistName.text = playlistIcon.Name
+            binding.playlistName.text = playlistIcon.name
             Glide.with(binding.root)
-                .load(playlistIcon.BackgroundImage.URL)
+                .load(playlistIcon.backgroundImage.url)
                 .placeholder(R.drawable.ic_home)
                 .into(binding.playlistImage)
         }
     }
 
     class PlaylistDiffCallback : DiffUtil.ItemCallback<PlaylistIcon>() {
-        override fun areItemsTheSame(oldItem: PlaylistIcon, newItem: PlaylistIcon): Boolean = oldItem.ID == newItem.ID
+        override fun areItemsTheSame(oldItem: PlaylistIcon, newItem: PlaylistIcon): Boolean = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: PlaylistIcon, newItem: PlaylistIcon): Boolean = oldItem == newItem
     }
 }

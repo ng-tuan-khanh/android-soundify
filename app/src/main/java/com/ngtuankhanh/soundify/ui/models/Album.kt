@@ -1,11 +1,11 @@
 package com.ngtuankhanh.soundify.ui.models
 
 class Album {
-    var Name: String? = null
-    var ID: String? = null
-    var artist_ID: String? = null
-    var album_ID: String? = null
-    lateinit var BackgroundImage: Image
-    lateinit var TotalFollower: Followers
-    var ListOfTracks: Array<Track> = arrayOf()
+    var name: String? = null
+    var id: String? = null
+    var artistId: String? = null
+    var albumId: String? = null
+    lateinit var backgroundImage: Image
+    lateinit var totalFollowers: Followers
+    var listOfTracks: List<Track> = listOf()
 }

@@ -1,11 +1,11 @@
 package com.ngtuankhanh.soundify.ui.models
 
 class Artist {
-    var Name: String? = null
-    var ID: String? = null
-    lateinit var AvatarImage: Image
-    lateinit var BackgroundImage: Image
-    lateinit var TotalFollower: Followers
-    var ListOfTracks: Array<Track> = arrayOf()
-    var ListOfAlbums: Array<Album> = arrayOf()
+    var name: String? = null
+    var id: String? = null
+    lateinit var avatarImage: Image
+    lateinit var backgroundImage: Image
+    lateinit var totalFollowers: Followers
+    var listOfTracks: List<Track> = listOf()
+    var listOfAlbums: List<Album> = listOf()
 }

@@ -1,9 +1,9 @@
 package com.ngtuankhanh.soundify.ui.models
 
 class Image {
-    var URL: String? = null
+    var url: String? = null
 }
 
 class Followers {
-    var Total: Int? = null
+    var total: Int? = null
 }

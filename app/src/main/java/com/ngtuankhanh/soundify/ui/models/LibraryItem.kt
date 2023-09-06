@@ -5,8 +5,8 @@ enum class LibraryItemType {
 }
 
 class LibraryItem {
-    var ID: String? = null
-    var Name: String? = null
-    var AvatarImage: Image? = null
-    lateinit var Type: LibraryItemType
+    var id: String? = null
+    var name: String? = null
+    var avatarImage: Image? = null
+    lateinit var type: LibraryItemType
 }

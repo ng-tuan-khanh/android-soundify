@@ -56,10 +56,10 @@ class HomeFragment : Fragment() {
         val list = mutableListOf<PlaylistIcon>()
         for (i in 1..6) {
             val playlist = PlaylistIcon().apply {
-                Name = "Playlist $i"
-                ID = i.toString()
-                BackgroundImage = Image().apply {
-                    URL = imageURL
+                name = "Playlist $i"
+                id = i.toString()
+                backgroundImage = Image().apply {
+                    url = imageURL
                 }
             }
             list.add(playlist)

@@ -23,9 +23,9 @@ class LibraryItemAdapter(private val libraryItems: List<LibraryItem>) : Recycler
     inner class LibraryItemViewHolder(private val binding: ItemLibraryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(libraryItem: LibraryItem) {
             binding.apply {
-                itemName.text = libraryItem.Name
-                Glide.with(itemView.context).load(libraryItem.AvatarImage?.URL).into(itemAvatar)
-                itemType.text = libraryItem.Type.name
+                itemName.text = libraryItem.name
+                Glide.with(itemView.context).load(libraryItem.avatarImage?.url).into(itemAvatar)
+                itemType.text = libraryItem.type.name
             }
         }
     }
