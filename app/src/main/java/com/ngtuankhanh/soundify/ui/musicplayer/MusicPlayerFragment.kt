@@ -1,31 +1,45 @@
-package com.ngtuankhanh.soundify.musicplayer
+package com.ngtuankhanh.soundify.ui.musicplayer
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.ngtuankhanh.soundify.R
-import com.ngtuankhanh.soundify.databinding.ActivityMusicPlayerBinding
+import com.ngtuankhanh.soundify.databinding.FragmentMusicPlayerBinding
 
-// This activity is used to test the MusicPlayer only
 
 enum class PlayerState {
-    PLAYING,
-    PAUSED
+    PAUSED, PLAYING
 }
 
-class MusicPlayerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMusicPlayerBinding
+class MusicPlayerFragment : Fragment() {
+    private lateinit var binding: FragmentMusicPlayerBinding
     private lateinit var player: ExoPlayer
     private var playerState = PlayerState.PAUSED
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_music_player, container, false
+        )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        val musicPlayerViewModelFactory = MusicPlayerViewModel.Factory()
+        val musicPlayerViewModel =
+            ViewModelProvider(
+                this,
+                musicPlayerViewModelFactory
+            ).get(MusicPlayerViewModel::class.java)
 
-        binding = ActivityMusicPlayerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.viewModel = musicPlayerViewModel
 
-        player = ExoPlayer.Builder(this).build()
+        player = ExoPlayer.Builder(requireContext()).build()
 
         val mediaItem =
             MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
@@ -51,6 +65,8 @@ class MusicPlayerActivity : AppCompatActivity() {
         binding.nextButton.setOnClickListener {
             player.seekToNextMediaItem()
         }
+
+        return binding.root
     }
 
     override fun onDestroy() {
@@ -58,3 +74,7 @@ class MusicPlayerActivity : AppCompatActivity() {
         player.release()
     }
 }
+
+
+
+
