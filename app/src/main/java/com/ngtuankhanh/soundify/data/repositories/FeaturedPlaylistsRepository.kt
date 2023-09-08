@@ -29,12 +29,13 @@ class FeaturedPlaylistsRepository() {
     }.flowOn(Dispatchers.IO)
 
     fun getFeaturedPlaylists() = flow {
-        val res = mutableListOf<Playlist>()
         _featuredPlaylistsIds.collect { playlists ->
+            val res = mutableListOf<Playlist>()
             playlists.forEach { id ->
-                guardValidSpotifyApi { api ->
+                val tmp = guardValidSpotifyApi { api ->
                     api.playlists.getPlaylist(playlist = id, market = Market.VN)
-                }?.let {
+                }
+                tmp?.let {
                     res.add(
                         Playlist(
                             id = it.id,
@@ -46,8 +47,8 @@ class FeaturedPlaylistsRepository() {
                     )
                 }
             }
+            emit(res)
         }
-        emit(res)
     }.flowOn(Dispatchers.IO)
 }
 
