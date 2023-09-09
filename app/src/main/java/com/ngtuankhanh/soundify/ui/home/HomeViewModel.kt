@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private val repository = FeaturedPlaylistsRepository()
+    private val _repository = FeaturedPlaylistsRepository()
     private val _featuredPlaylists = MutableStateFlow(emptyList<DisplayAlbum>())
     val featuredPlaylists: StateFlow<List<DisplayAlbum>>
         get() = _featuredPlaylists
     init {
         viewModelScope.launch {
-            repository.getFeaturedPlaylists().collect { list ->
+            _repository.getFeaturedPlaylists().collect { list ->
                 _featuredPlaylists.value = list.map {
                     DisplayAlbum(id = it.id, name = it.name, artistName = it.owner.displayName, imageUrl = it.images[0]?.url)
                 }

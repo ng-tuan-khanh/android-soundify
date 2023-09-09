@@ -32,6 +32,10 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        val homeViewModelFactory = HomeViewModel.Factory()
+        val homeViewModel =
+            ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
+
         // Setup favorite playlist RecyclerView
         binding.homeFragmentFavoriteGrid.layoutManager = GridLayoutManager(context, 2)
         binding.homeFragmentFavoriteGrid.adapter = favoriteAdapter
@@ -41,11 +45,6 @@ class HomeFragment : Fragment() {
         binding.homeFragmentAlbumSeriesRecyclerView.layoutManager =
             GridLayoutManager(context, 1)  // or any other desired layout manager
         binding.homeFragmentAlbumSeriesRecyclerView.adapter = albumAdapter
-
-
-        val homeViewModelFactory = HomeViewModel.Factory()
-        val homeViewModel =
-            ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

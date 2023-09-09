@@ -32,10 +32,9 @@ class FeaturedPlaylistsRepository() {
         _featuredPlaylistsIds.collect { playlists ->
             val res = mutableListOf<Playlist>()
             playlists.forEach { id ->
-                val tmp = guardValidSpotifyApi { api ->
+                guardValidSpotifyApi { api ->
                     api.playlists.getPlaylist(playlist = id, market = Market.VN)
-                }
-                tmp?.let {
+                }?.let {
                     res.add(
                         Playlist(
                             id = it.id,

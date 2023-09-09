@@ -30,7 +30,7 @@
             app:tint="@color/appWhite" />
 
         <EditText
-            android:id="@+id/search_fragment_searchbar"
+            android:id="@+id/search_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
