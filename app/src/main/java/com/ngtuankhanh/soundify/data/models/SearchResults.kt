@@ -5,7 +5,7 @@ import com.adamratzman.spotify.models.SimpleAlbum
 import com.adamratzman.spotify.models.SimplePlaylist
 import com.adamratzman.spotify.models.Track
 
-data class SearchResult (
+data class SearchResults (
     val albums: List<SimpleAlbum> = emptyList(),
     val artists: List<Artist> = emptyList(),
     val playlists: List<SimplePlaylist> = emptyList(),

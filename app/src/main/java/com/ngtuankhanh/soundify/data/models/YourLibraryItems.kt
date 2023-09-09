@@ -1,14 +1,13 @@
 package com.ngtuankhanh.soundify.data.models
 
+import com.adamratzman.spotify.models.Album
 import com.adamratzman.spotify.models.Artist
-import com.adamratzman.spotify.models.CursorBasedPagingObject
-import com.adamratzman.spotify.models.PagingObject
-import com.adamratzman.spotify.models.SavedAlbum
-import com.adamratzman.spotify.models.SavedTrack
+import com.adamratzman.spotify.models.SimplePlaylist
+import com.adamratzman.spotify.models.Track
+
 data class YourLibraryItems(
-    val tracks: PagingObject<SavedTrack>,
-    val albums: PagingObject<SavedAlbum>,
-    val artists: CursorBasedPagingObject<Artist>
-) {
-    val items: List<Any> = tracks.items + albums.items + artists.items
-}
+    val tracks: List<Track>,
+    val albums: List<Album>,
+    val playlists: List<SimplePlaylist>,
+    val artists: List<Artist>
+)

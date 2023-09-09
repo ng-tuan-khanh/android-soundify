@@ -35,7 +35,7 @@ class SearchFragment : Fragment() {
                 // This is called when the text is changing
                 // s is the updated text
 
-                searchViewModel.searchForItems(s.toString())
+                if (s.isNotEmpty()) searchViewModel.searchForItems(s.toString())
             }
 
             override fun afterTextChanged(s: Editable) {
