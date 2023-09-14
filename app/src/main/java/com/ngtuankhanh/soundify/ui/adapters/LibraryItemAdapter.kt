@@ -7,7 +7,10 @@ import com.ngtuankhanh.soundify.databinding.ItemLibraryBinding
 import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.ui.models.LibraryItem
 
-class LibraryItemAdapter(private val libraryItems: List<LibraryItem>) : RecyclerView.Adapter<LibraryItemAdapter.LibraryItemViewHolder>() {
+class LibraryItemAdapter(
+    private val libraryItems: List<LibraryItem>,
+    private val onItemClickListener: (LibraryItem) -> Unit
+) : RecyclerView.Adapter<LibraryItemAdapter.LibraryItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryItemViewHolder {
         val binding = ItemLibraryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +20,9 @@ class LibraryItemAdapter(private val libraryItems: List<LibraryItem>) : Recycler
     override fun getItemCount(): Int = libraryItems.size
 
     override fun onBindViewHolder(holder: LibraryItemViewHolder, position: Int) {
-        holder.bind(libraryItems[position])
+        val libraryItem = libraryItems[position]
+        holder.bind(libraryItem)
+        holder.itemView.setOnClickListener { onItemClickListener(libraryItem) }
     }
 
     inner class LibraryItemViewHolder(private val binding: ItemLibraryBinding) : RecyclerView.ViewHolder(binding.root) {

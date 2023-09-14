@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBlack"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- This is your artist background image -->
+        <ImageView
+            android:id="@+id/artist_fragment_artistBackgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_home"
+            android:scaleType="centerCrop" />
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/artist_fragment_backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:background="?android:selectableItemBackground"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back" />
+
+        <!-- This is your artist avatar image that should overlap the background image -->
+
+        <!-- Artist Name next to the Avatar Image -->
+        <ImageView
+            android:id="@+id/artist_fragment_artistAvatarImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignBottom="@+id/artist_fragment_artistBackgroundImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="19dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play_button" />
+
+        <TextView
+            android:id="@+id/artist_fragment_artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/artist_fragment_artistAvatarImage"
+            android:layout_alignBottom="@+id/artist_fragment_artistAvatarImage"
+            android:layout_marginStart="16dp"
+            android:text="Artist Name"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF" />
+
+        <!-- Artist Description -->
+        <TextView
+            android:id="@+id/artist_fragment_artistDescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artist_fragment_artistBackgroundImage"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/appWhite"
+            android:text="Artist description goes here..." />
+
+        <!-- Album Title -->
+        <TextView
+            android:id="@+id/artist_fragment_albumTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artist_fragment_artistDescriptionTextView"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Albums"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF" />
+
+        <!-- Album List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/artist_fragment_albumsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artist_fragment_albumTitleTextView"
+            android:layout_marginTop="8dp" />
+
+        <!-- Track Title -->
+        <TextView
+            android:id="@+id/artist_fragment_trackTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artist_fragment_albumsRecyclerView"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Tracks"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF" />
+
+        <!-- Tracks List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/artist_fragment_tracksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artist_fragment_trackTitleTextView"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+</ScrollView>

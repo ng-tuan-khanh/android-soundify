@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentLibraryBinding
 import com.ngtuankhanh.soundify.ui.adapters.LibraryItemAdapter
@@ -15,7 +16,23 @@ import com.ngtuankhanh.soundify.ui.models.LibraryItemType
 class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
 
-    private val adapter by lazy { LibraryItemAdapter(generateDummyLibraryItems()) }
+    private val adapter by lazy {
+        LibraryItemAdapter(generateDummyLibraryItems()) { item ->
+            when (item.type) {
+                LibraryItemType.PLAYLIST -> {
+                    val action = LibraryFragmentDirections.actionLibraryFragmentToPlaylistDetailFragment(item.id!!)
+                    // Bạn có thể set ID hoặc các thông tin khác cho playlistDetailFragment ở đây nếu cần
+                    findNavController().navigate(action)
+                }
+                LibraryItemType.ARTIST -> {
+                    val action = LibraryFragmentDirections.actionLibraryFragmentToArtistProfileFragment(item.id!!)
+                    // Tương tự, bạn có thể set ID hoặc các thông tin khác cho artistProfileFragment ở đây nếu cần
+                    findNavController().navigate(action)
+                }
+                // Không cần phần else nếu bạn chỉ có 2 kiểu
+            }
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLibraryBinding.inflate(inflater, container, false)
 

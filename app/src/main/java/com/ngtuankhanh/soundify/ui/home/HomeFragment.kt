@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
 
     private val favoriteAdapter by lazy {
         FavoritePlaylistAdapter { playlist ->
-            val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment() // Nếu bạn có action này trong Navigation Graph
+            val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(playlist.id!!) // Nếu bạn có action này trong Navigation Graph
             findNavController().navigate(action)
         }
     }

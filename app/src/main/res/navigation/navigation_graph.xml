@@ -19,13 +19,24 @@
         android:id="@+id/searchFragment"
         android:name="com.ngtuankhanh.soundify.ui.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_artistProfileFragment"
+            app:destination="@id/artistProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.ngtuankhanh.soundify.ui.yourlibrary.LibraryFragment"
         android:label="Library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_libraryFragment_to_artistProfileFragment"
+            app:destination="@id/artistProfileFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_playlistDetailFragment"
+            app:destination="@id/playlistDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/playlistDetailFragment"
@@ -41,5 +52,18 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/artistProfileFragment"
+        android:name="com.ngtuankhanh.soundify.ui.artistprofile.ArtistProfileFragment"
+        android:label="fragment_artist_profile"
+        tools:layout="@layout/fragment_artist_profile" >
+
+        <argument
+            android:name="artistId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true"/>
+
+    </fragment>
 
 </navigation>

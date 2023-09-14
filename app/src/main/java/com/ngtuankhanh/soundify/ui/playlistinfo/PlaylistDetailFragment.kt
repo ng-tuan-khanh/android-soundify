@@ -33,7 +33,7 @@ class PlaylistDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //val playlistId = arguments?.getString("playlistId")
         setupRecyclerView()
 
         binding.fragmentPlaylistdetailBackButton.setOnClickListener {

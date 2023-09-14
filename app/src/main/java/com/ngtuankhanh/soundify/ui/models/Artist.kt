@@ -5,7 +5,6 @@ class Artist {
     var id: String? = null
     lateinit var avatarImage: Image
     lateinit var backgroundImage: Image
-    lateinit var totalFollowers: Followers
     var listOfTracks: List<Track> = listOf()
-    var listOfAlbums: List<Album> = listOf()
+    var listOfAlbums: List<PlaylistIcon> = listOf()
 }
