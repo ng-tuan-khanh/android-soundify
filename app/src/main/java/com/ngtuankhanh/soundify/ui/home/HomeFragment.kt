@@ -10,6 +10,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ngtuankhanh.soundify.ui.adapters.FavoritePlaylistAdapter
 import com.ngtuankhanh.soundify.ui.adapters.AlbumAdapter
@@ -21,7 +23,12 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
-    private val favoriteAdapter by lazy { FavoritePlaylistAdapter() }
+    private val favoriteAdapter by lazy {
+        FavoritePlaylistAdapter { playlist ->
+            val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment() // Nếu bạn có action này trong Navigation Graph
+            findNavController().navigate(action)
+        }
+    }
     private val albumAdapter by lazy { AlbumAdapter() }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
@@ -89,4 +96,5 @@ class HomeFragment : Fragment() {
         }
         return list
     }
+
 }

@@ -10,18 +10,28 @@ import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.ItemFavoriteGridBinding
 import com.ngtuankhanh.soundify.ui.models.PlaylistIcon
 
-class FavoritePlaylistAdapter : ListAdapter<PlaylistIcon, FavoritePlaylistAdapter.FavoritePlaylistViewHolder>(PlaylistDiffCallback()) {
+class FavoritePlaylistAdapter(private val onItemClick: (PlaylistIcon) -> Unit) : ListAdapter<PlaylistIcon, FavoritePlaylistAdapter.FavoritePlaylistViewHolder>(PlaylistDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritePlaylistViewHolder {
         val binding = ItemFavoriteGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoritePlaylistViewHolder(binding)
+        return FavoritePlaylistViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: FavoritePlaylistViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class FavoritePlaylistViewHolder(private val binding: ItemFavoriteGridBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class FavoritePlaylistViewHolder(private val binding: ItemFavoriteGridBinding, private val onItemClick: (PlaylistIcon) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    onItemClick(item)
+                }
+            }
+        }
+
         fun bind(playlistIcon: PlaylistIcon) {
             binding.playlistName.text = playlistIcon.name
             Glide.with(binding.root)
