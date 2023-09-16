@@ -1,9 +1,5 @@
 package com.ngtuankhanh.soundify.ui.models
 
-class Image {
-    var url: String? = null
-}
+data class Image (val url: String = "")
 
-class Followers {
-    var total: Int? = null
-}
+data class Followers (val total: Int = 0)

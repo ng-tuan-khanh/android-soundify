@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ngtuankhanh.soundify.ui.models.SearchItem
-import com.ngtuankhanh.soundify.ui.models.SearchResults
 import com.ngtuankhanh.soundify.databinding.ItemSearchResultBinding
 
 class SearchAdapter : ListAdapter<SearchItem, SearchAdapter.SearchViewHolder>(SearchDiffCallback()) {
@@ -25,7 +24,6 @@ class SearchAdapter : ListAdapter<SearchItem, SearchAdapter.SearchViewHolder>(Se
         fun bind(item: SearchItem) {
             binding.searchResultName.text = item.name
             binding.searchResultType.text = item.type.toString()
-            // Bạn cũng có thể đặt icon ở đây nếu muốn.
         }
     }
 

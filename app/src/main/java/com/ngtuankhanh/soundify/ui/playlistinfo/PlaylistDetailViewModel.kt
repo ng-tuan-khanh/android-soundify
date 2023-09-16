@@ -35,9 +35,7 @@ class PlaylistDetailViewModel : ViewModel() {
             val track = Track().apply {
                 id = i.toString()
                 name = "Track $i"
-                backgroundImage = Image().apply {
-                    url = "Your track image URL here"
-                }
+                backgroundImage = Image("")
             }
             dummyTracks.add(track)
         }

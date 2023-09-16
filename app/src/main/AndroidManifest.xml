@@ -34,7 +34,10 @@
             android:name=".ui.activities.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Soundify"></activity>
+            android:theme="@style/Theme.Soundify"
+            android:windowSoftInputMode="adjustNothing|stateVisible">
+
+        </activity>
 
         <activity
             android:name=".auth.SpotifyPkceLoginActivityImpl"
