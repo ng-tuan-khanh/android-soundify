@@ -1,5 +1,6 @@
 package com.ngtuankhanh.soundify.ui.activities
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.findNavController
 import android.view.View
@@ -9,6 +10,7 @@ import com.ngtuankhanh.soundify.databinding.ActivityHomeBinding
 
 class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private var currentTrackId: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,6 +22,13 @@ class HomeActivity : BaseActivity() {
             it.isSelected = !isSelected
             // Thực hiện logic play/pause tại đây
         }
+
+        binding.streamingBar.setOnClickListener {
+            val trackIdUri = Uri.parse("soundify://musicplayer/$currentTrackId")
+            findNavController(R.id.nav_host_fragment).navigate(trackIdUri)
+        }
+
+
 
         hideNavigationBar()
 

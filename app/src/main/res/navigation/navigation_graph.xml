@@ -66,4 +66,21 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/musicPlayerFragment"
+        android:name="com.ngtuankhanh.soundify.ui.musicplayer.MusicPlayerFragment"
+        android:label="MusicPlayerFragment"
+        tools:layout="@layout/fragment_music_player">
+
+        <argument
+            android:name="trackId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true"/>
+
+        <deepLink
+            android:id="@+id/deepLinkToMusicPlayer"
+            app:uri="soundify://musicplayer"/>
+    </fragment>
+
 </navigation>
