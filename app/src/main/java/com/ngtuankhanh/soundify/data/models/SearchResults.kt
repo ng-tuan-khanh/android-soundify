@@ -20,28 +20,28 @@ data class SearchResults (
                 name = it.name,
                 id = it.id,
                 avatarImage = Image(it.images.firstOrNull()?.url ?: ""),
-                type = ItemType.ALBUM
+                type = ItemType.Album
             )
         } + artists.map {
             SearchItem(
                 name = it.name,
                 id = it.id,
                 avatarImage = Image(it.images.firstOrNull()?.url ?: ""),
-                type = ItemType.ARTIST
+                type = ItemType.Artist
             )
         } + playlists.map {
             SearchItem(
                 name = it.name,
                 id = it.id,
                 avatarImage = Image(it.images.firstOrNull()?.url ?: ""),
-                type = ItemType.PLAYLIST
+                type = ItemType.Playlist
             )
         } + tracks.map {
             SearchItem(
                 name = it.name,
                 id = it.id,
                 avatarImage = Image(it.album.images.firstOrNull()?.url ?: ""),
-                type = ItemType.TRACK
+                type = ItemType.Track
             )
         }).shuffled()
 

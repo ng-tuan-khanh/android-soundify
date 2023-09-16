@@ -12,13 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentSearchBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
-import com.ngtuankhanh.soundify.ui.adapters.SearchAdapter
+import com.ngtuankhanh.soundify.ui.adapters.SearchItemsAdapter
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
 
-    private val searchAdapter by lazy { SearchAdapter() }
+    private val searchItemsAdapter by lazy { SearchItemsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +45,7 @@ class SearchFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchResults.collect { results ->
-                searchAdapter.submitList(results) // CHANGED: Trực tiếp truyền results vào mà không cần qua thuộc tính items
+                searchItemsAdapter.submitList(results) // CHANGED: Trực tiếp truyền results vào mà không cần qua thuộc tính items
             }
         }
 
@@ -55,7 +55,7 @@ class SearchFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.searchResultsRecyclerview.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = searchAdapter
+            adapter = searchItemsAdapter
         }
     }
 }
