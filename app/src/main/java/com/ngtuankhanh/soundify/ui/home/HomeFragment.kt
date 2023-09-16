@@ -30,7 +30,19 @@ class HomeFragment : Fragment() {
             this.findNavController().navigate(action)
         }
     }
-    private val featuredPlaylistsAdapter by lazy { FeaturedPlaylistsAdapter() }
+
+    private val featuredPlaylistsAdapter by lazy {
+        FeaturedPlaylistsAdapter(
+            onPlaylistClick = { playlist ->
+                val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(playlist.id)
+                this.findNavController().navigate(action)
+            },
+            onPlayClick = {
+                // Thêm logic để phát nhạc vào đây
+            }
+        )
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
