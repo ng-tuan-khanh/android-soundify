@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ngtuankhanh.soundify.databinding.FragmentArtistProfileBinding
-import com.ngtuankhanh.soundify.ui.adapters.FavoritePlaylistAdapter
+import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.TrackListAdapter
 import com.ngtuankhanh.soundify.ui.models.Artist
 import com.ngtuankhanh.soundify.ui.models.PlaylistIcon
@@ -16,7 +16,7 @@ class ArtistProfileFragment : Fragment() {
     private lateinit var binding: FragmentArtistProfileBinding
 
     // Giả lập việc tạo Adapters
-    private val favoritePlaylistAdapter by lazy { FavoritePlaylistAdapter {} }
+    private val topPlaylistsAdapter by lazy { TopPlaylistsAdapter {} }
     private val trackListAdapter by lazy { TrackListAdapter {} }
 
     override fun onCreateView(
@@ -69,9 +69,9 @@ class ArtistProfileFragment : Fragment() {
         // Cần thiết lập ảnh cho avatar và background ở đây nếu bạn muốn
 
         binding.artistFragmentAlbumsRecyclerView.apply {
-            adapter = favoritePlaylistAdapter
+            adapter = topPlaylistsAdapter
             // Cập nhật dữ liệu cho adapter
-            favoritePlaylistAdapter.submitList(artist.listOfAlbums)
+            //topPlaylistsAdapter.submitList(artist.listOfAlbums)
         }
 
         binding.artistFragmentTracksRecyclerView.apply {

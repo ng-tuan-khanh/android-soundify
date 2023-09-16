@@ -86,7 +86,10 @@ dependencies {
     // Gson
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //Glide
+    // Glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:glide:4.16.0")
+
+    // CardView
+    implementation ("androidx.cardview:cardview:1.0.0")
 }
