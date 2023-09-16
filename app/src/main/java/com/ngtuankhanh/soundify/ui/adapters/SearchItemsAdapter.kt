@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.ui.models.SearchItem
 import com.ngtuankhanh.soundify.databinding.ItemSearchResultBinding
+import com.ngtuankhanh.soundify.ui.models.ItemType
+import com.ngtuankhanh.soundify.ui.search.OnSearchItemClickListener
 
-class SearchItemsAdapter :
+class SearchItemsAdapter(private val listener: OnSearchItemClickListener) :
     ListAdapter<SearchItem, SearchItemsAdapter.SearchViewHolder>(SearchItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
-        val binding =
-            ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SearchViewHolder(binding)
+        val binding = ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return SearchViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
@@ -23,14 +24,20 @@ class SearchItemsAdapter :
         holder.bind(item)
     }
 
-    class SearchViewHolder(private val binding: ItemSearchResultBinding) :
+
+    class SearchViewHolder(private val binding: ItemSearchResultBinding, private val listener: OnSearchItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SearchItem) {
-            binding.resultNameText.text = item.name
-            binding.resultTypeText.text = item.type.toString()
-            Glide.with(binding.root)
-                .load(item.avatarImage.url)
-                .into(binding.resultImage)
+            // ... các phần khác của mã ...
+
+            binding.root.setOnClickListener {
+                when (item.type) {
+                    ItemType.Track -> listener.onTrackClicked(item)
+                    ItemType.Artist -> listener.onArtistClicked(item)
+                    ItemType.Playlist -> listener.onPlaylistClicked(item)
+                    ItemType.Album -> { /* Ignored for now */ }
+                }
+            }
         }
     }
 
