@@ -83,7 +83,7 @@
 
         <deepLink
             android:id="@+id/deepLinkToMusicPlayer"
-            app:uri="soundify://musicplayer"/>
+            app:uri="soundify://musicplayer/{trackId}"/>
     </fragment>
 
 </navigation>
