@@ -42,6 +42,16 @@ class SearchViewModel(activity: BaseActivity?) : ViewModel() {
                     else -> ItemType.TRACK
                 }
             }
+        }
+        return list
+    }
+
+    class Factory(private val activity: BaseActivity?) : ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+                return SearchViewModel(activity) as T
+            }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }

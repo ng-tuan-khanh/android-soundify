@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentSearchBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.SearchAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
@@ -48,7 +47,7 @@ class SearchFragment : Fragment() {
             searchViewModel.searchResults.collect { results ->
                 searchAdapter.submitList(results) // CHANGED: Trực tiếp truyền results vào mà không cần qua thuộc tính items
             }
-        })
+        }
 
         return binding.root
     }
