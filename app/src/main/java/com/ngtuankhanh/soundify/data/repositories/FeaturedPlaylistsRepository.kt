@@ -4,6 +4,7 @@ import com.adamratzman.spotify.models.FeaturedPlaylists
 import com.adamratzman.spotify.utils.Market
 import com.ngtuankhanh.soundify.auth.guardValidSpotifyApi
 import com.ngtuankhanh.soundify.data.models.Playlist
+import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -13,12 +14,12 @@ import kotlinx.coroutines.flow.map
 
 const val refreshIntervalMs = 6000000L
 
-class FeaturedPlaylistsRepository() {
+class FeaturedPlaylistsRepository(private val activity: BaseActivity?) {
     // Data source
     private val _featuredPlaylistsIds: Flow<List<String>> = flow {
         while (true) {
             lateinit var res: FeaturedPlaylists
-            guardValidSpotifyApi { api ->
+            activity?.guardValidSpotifyApi { api ->
                 res = api.browse.getFeaturedPlaylists()
             }
             emit(res)
@@ -32,7 +33,7 @@ class FeaturedPlaylistsRepository() {
         _featuredPlaylistsIds.collect { playlists ->
             val res = mutableListOf<Playlist>()
             playlists.forEach { id ->
-                guardValidSpotifyApi { api ->
+                activity?.guardValidSpotifyApi { api ->
                     api.playlists.getPlaylist(playlist = id, market = Market.VN)
                 }?.let {
                     res.add(

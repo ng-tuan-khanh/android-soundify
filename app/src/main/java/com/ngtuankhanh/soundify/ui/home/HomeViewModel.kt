@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.ngtuankhanh.soundify.data.repositories.FeaturedPlaylistsRepository
+import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import com.ngtuankhanh.soundify.ui.models.DisplayAlbum
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-    private val _repository = FeaturedPlaylistsRepository()
+class HomeViewModel(activity: BaseActivity?) : ViewModel() {
+    private val _repository = FeaturedPlaylistsRepository(activity)
     private val _featuredPlaylists = MutableStateFlow(emptyList<DisplayAlbum>())
     val featuredPlaylists: StateFlow<List<DisplayAlbum>>
         get() = _featuredPlaylists
@@ -24,11 +25,11 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    class Factory() : ViewModelProvider.Factory {
+    class Factory(private val activity: BaseActivity?) : ViewModelProvider.Factory {
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                return HomeViewModel() as T
+                return HomeViewModel(activity) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

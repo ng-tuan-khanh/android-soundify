@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ngtuankhanh.soundify.ui.adapters.FavoritePlaylistAdapter
 import com.ngtuankhanh.soundify.ui.adapters.AlbumAdapter
 import com.ngtuankhanh.soundify.databinding.FragmentHomeBinding
+import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.models.Image
 import com.ngtuankhanh.soundify.ui.models.PlaylistIcon
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val homeViewModelFactory = HomeViewModel.Factory()
+        val homeViewModelFactory = HomeViewModel.Factory(requireActivity() as HomeActivity)
         val homeViewModel =
             ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 

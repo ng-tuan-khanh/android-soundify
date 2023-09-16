@@ -4,11 +4,12 @@ import com.adamratzman.spotify.models.Artist
 import com.adamratzman.spotify.models.SimpleAlbum
 import com.adamratzman.spotify.models.Track
 import com.ngtuankhanh.soundify.auth.guardValidSpotifyApi
+import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class ArtistInfoRepository {
+class ArtistInfoRepository(private val activity: BaseActivity?) {
     private val _artistInfo : MutableMap<String, Artist> = mutableMapOf()
     private val _artistTracks : MutableMap<String, List<Track>> = mutableMapOf()
     private val _artistAlbums : MutableMap<String, List<SimpleAlbum>> = mutableMapOf()
@@ -17,7 +18,7 @@ class ArtistInfoRepository {
             emit(_artistInfo[artistId]!!)
             return@flow
         }
-        guardValidSpotifyApi { api ->
+        activity?.guardValidSpotifyApi { api ->
             api.artists.getArtist(artistId)
         }?.let {
             emit(it)
@@ -30,7 +31,7 @@ class ArtistInfoRepository {
             emit(_artistTracks[artistId]!!)
             return@flow
         }
-        guardValidSpotifyApi { api ->
+        activity?.guardValidSpotifyApi { api ->
             api.artists.getArtistTopTracks(artistId)
         }?.let {
             emit(it)
@@ -43,7 +44,7 @@ class ArtistInfoRepository {
             emit(_artistAlbums[artistId]!!)
             return@flow
         }
-        guardValidSpotifyApi { api ->
+        activity?.guardValidSpotifyApi { api ->
             api.artists.getArtistAlbums(artistId)
         }?.let {
             emit(it.items)

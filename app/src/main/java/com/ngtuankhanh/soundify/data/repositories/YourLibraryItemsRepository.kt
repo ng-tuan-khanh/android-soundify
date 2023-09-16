@@ -10,6 +10,7 @@ import com.adamratzman.spotify.models.SimplePlaylist
 import com.adamratzman.spotify.models.Track
 import com.ngtuankhanh.soundify.auth.guardValidSpotifyApi
 import com.ngtuankhanh.soundify.data.models.YourLibraryItems
+import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -18,12 +19,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-class YourLibraryItemsRepository() {
+class YourLibraryItemsRepository(private val activity: BaseActivity?) {
     // Data sources
     private val _savedTracks: Flow<List<Track>> = flow {
         while (true) {
             lateinit var res: PagingObject<SavedTrack>
-            guardValidSpotifyApi { api ->
+            activity?.guardValidSpotifyApi { api ->
                 res = api.library.getSavedTracks()
             }
             emit(res)
@@ -37,7 +38,7 @@ class YourLibraryItemsRepository() {
     private val _savedAlbums: Flow<List<Album>> = flow {
         while (true) {
             lateinit var res: PagingObject<SavedAlbum>
-            guardValidSpotifyApi { api ->
+            activity?.guardValidSpotifyApi { api ->
                 res = api.library.getSavedAlbums()
             }
             emit(res)
@@ -50,12 +51,12 @@ class YourLibraryItemsRepository() {
     }.flowOn(Dispatchers.IO)
 
     private val _savedPlaylists: Flow<List<SimplePlaylist>> = flow {
-        val userId = guardValidSpotifyApi { api ->
+        val userId = activity?.guardValidSpotifyApi { api ->
             api.users.getClientProfile().id
         }
         while (true) {
             lateinit var res: List<SimplePlaylist>
-            guardValidSpotifyApi { api ->
+            activity?.guardValidSpotifyApi { api ->
                 res = api.playlists.getUserPlaylists(userId!!).items
             }
             emit(res)
@@ -66,7 +67,7 @@ class YourLibraryItemsRepository() {
     private val _followedArtists: Flow<List<Artist>> = flow {
         while (true) {
             lateinit var res: CursorBasedPagingObject<Artist>
-            guardValidSpotifyApi { api ->
+            activity?.guardValidSpotifyApi { api ->
                 res = api.following.getFollowedArtists()
             }
             emit(res)

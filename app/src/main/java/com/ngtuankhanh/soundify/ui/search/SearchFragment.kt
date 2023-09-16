@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.FragmentSearchBinding
+import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.home.HomeViewModel
 
 class SearchFragment : Fragment() {
@@ -22,7 +23,7 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        val searchViewModelFactory = SearchViewModel.Factory()
+        val searchViewModelFactory = SearchViewModel.Factory(requireActivity() as HomeActivity)
         val searchViewModel =
             ViewModelProvider(this, searchViewModelFactory).get(SearchViewModel::class.java)
 

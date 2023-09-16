@@ -11,6 +11,8 @@ import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.FragmentMusicPlayerBinding
+import com.ngtuankhanh.soundify.ui.activities.BaseActivity
+import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 
 
 enum class PlayerState {
@@ -29,7 +31,7 @@ class MusicPlayerFragment : Fragment() {
             inflater, R.layout.fragment_music_player, container, false
         )
 
-        val musicPlayerViewModelFactory = MusicPlayerViewModel.Factory()
+        val musicPlayerViewModelFactory = MusicPlayerViewModel.Factory(requireActivity() as HomeActivity)
         val musicPlayerViewModel =
             ViewModelProvider(
                 this,

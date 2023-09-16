@@ -3,62 +3,52 @@ package com.ngtuankhanh.soundify.auth
 import android.app.Activity
 import com.adamratzman.spotify.SpotifyClientApi
 import com.adamratzman.spotify.SpotifyException
-import com.adamratzman.spotify.auth.SpotifyDefaultCredentialStore
-import com.adamratzman.spotify.auth.implicit.startSpotifyImplicitLoginActivity
 import com.adamratzman.spotify.auth.pkce.startSpotifyClientPkceLoginActivity
-import com.ngtuankhanh.soundify.ui.SoundifyApplication
-import com.ngtuankhanh.soundify.ui.SpotifyApi
+import com.ngtuankhanh.soundify.ui.Model
+import com.ngtuankhanh.soundify.ui.activities.MainActivity
 import kotlinx.coroutines.runBlocking
 
-fun <T> guardValidSpotifyApi(
+fun <T> Activity.guardValidSpotifyApi(
+    classBackTo: Class<out Activity> = MainActivity::class.java,
     alreadyTriedToReauthenticate: Boolean = false,
     block: suspend (api: SpotifyClientApi) -> T
 ): T? {
-    val credentialStore = SpotifyApi.credentialStore
     return runBlocking {
         try {
-            val token = credentialStore.spotifyToken
+            val token = Model.credentialStore.spotifyToken
                 ?: throw SpotifyException.ReAuthenticationNeededException()
-            val usesPkceAuth = token.refreshToken != null
-            val api = (if (usesPkceAuth) credentialStore.getSpotifyClientPkceApi()
-            else credentialStore.getSpotifyImplicitGrantApi())
+            val api = Model.credentialStore.getSpotifyClientPkceApi()
                 ?: throw SpotifyException.ReAuthenticationNeededException()
 
             block(api)
         } catch (e: SpotifyException) {
             e.printStackTrace()
-            val usesPkceAuth = credentialStore.spotifyToken?.refreshToken != null
-            if (usesPkceAuth) {
-                val api = credentialStore.getSpotifyClientPkceApi()!!
-                if (!alreadyTriedToReauthenticate) {
-                    try {
-                        api.refreshToken()
-                        credentialStore.spotifyToken = api.token
-                        block(api)
-                    } catch (e: SpotifyException.ReAuthenticationNeededException) {
-                        e.printStackTrace()
-                        return@runBlocking guardValidSpotifyApi(
-                            alreadyTriedToReauthenticate = true,
-                            block = block
-                        )
-                    } catch (e: IllegalArgumentException) {
-                        e.printStackTrace()
-                        return@runBlocking guardValidSpotifyApi(
-                            alreadyTriedToReauthenticate = true,
-                            block = block
-                        )
-                    }
-                } else {
-//                    pkceNavigateTo = navigateTo
-//                    startSpotifyClientPkceLoginActivity(PkceLoginActivityImpl::class.java)
-                    null
+            val api = Model.credentialStore.getSpotifyClientPkceApi()!!
+            if (!alreadyTriedToReauthenticate) {
+                try {
+                    api.refreshToken()
+                    Model.credentialStore.spotifyToken = api.token
+                    block(api)
+                } catch (e: SpotifyException.ReAuthenticationNeededException) {
+                    e.printStackTrace()
+                    return@runBlocking guardValidSpotifyApi(
+                        classBackTo = classBackTo,
+                        alreadyTriedToReauthenticate = true,
+                        block = block
+                    )
+                } catch (e: IllegalArgumentException) {
+                    e.printStackTrace()
+                    return@runBlocking guardValidSpotifyApi(
+                        classBackTo = classBackTo,
+                        alreadyTriedToReauthenticate = true,
+                        block = block
+                    )
                 }
             } else {
-//                SpotifyDefaultCredentialStore.activityBackOnImplicitAuth = navigateTo
-//                startSpotifyImplicitLoginActivity(ImplicitLoginActivityImpl::class.java)
+                pkceClassBackTo = classBackTo
+                startSpotifyClientPkceLoginActivity(SpotifyPkceLoginActivityImpl::class.java)
                 null
             }
         }
     }
 }
-
