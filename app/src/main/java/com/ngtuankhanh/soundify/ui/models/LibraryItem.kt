@@ -1,7 +1,7 @@
 package com.ngtuankhanh.soundify.ui.models
 
 enum class LibraryItemType {
-    PLAYLIST, ALBUM, ARTIST
+    PLAYLIST, ARTIST
 }
 
 class LibraryItem {
