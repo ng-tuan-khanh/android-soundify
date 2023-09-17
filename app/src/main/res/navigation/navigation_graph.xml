@@ -43,15 +43,16 @@
 
     <fragment
         android:id="@+id/playlistDetailFragment"
-        android:name="com.ngtuankhanh.soundify.ui.playlistinfo.PlaylistDetailFragment"
+        android:name="com.ngtuankhanh.soundify.ui.collectioninfo.CollectionDetailFragment"
         android:label="fragment_playlist_detail"
-        tools:layout="@layout/fragment_playlist_detail" >
+        tools:layout="@layout/fragment_collection_detail" >
 
         <argument
-            android:name="playlistId"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="true"/>
+            android:name="collectionId"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="com.ngtuankhanh.soundify.ui.models.ItemType" />
 
     </fragment>
 

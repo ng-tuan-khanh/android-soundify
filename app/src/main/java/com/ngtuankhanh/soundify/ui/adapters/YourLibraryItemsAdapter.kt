@@ -6,18 +6,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ngtuankhanh.soundify.databinding.ItemYourLibraryBinding
-import com.ngtuankhanh.soundify.ui.models.YourLibraryItem
+import com.ngtuankhanh.soundify.databinding.ItemDisplayBinding
+import com.ngtuankhanh.soundify.ui.models.Item
 
 class YourLibraryItemsAdapter(
-    private val onClickListener: (YourLibraryItem) -> Unit
-) : ListAdapter<YourLibraryItem, YourLibraryItemsAdapter.YourLibraryItemViewHolder>(
+    private val onClickListener: (Item) -> Unit
+) : ListAdapter<Item, YourLibraryItemsAdapter.YourLibraryItemViewHolder>(
     YourLibraryItemDiffCallback()
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YourLibraryItemViewHolder {
         val binding =
-            ItemYourLibraryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDisplayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return YourLibraryItemViewHolder(binding)
     }
 
@@ -27,25 +27,25 @@ class YourLibraryItemsAdapter(
         holder.itemView.setOnClickListener { onClickListener(libraryItem) }
     }
 
-    inner class YourLibraryItemViewHolder(private val binding: ItemYourLibraryBinding) :
+    inner class YourLibraryItemViewHolder(private val binding: ItemDisplayBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(yourLibraryItem: YourLibraryItem) {
+        fun bind(item: Item) {
             binding.apply {
-                libraryItemNameText.text = yourLibraryItem.name
-                Glide.with(itemView.context).load(yourLibraryItem.imageUrl).into(libraryItemImage)
-                libraryItemTypeText.text = yourLibraryItem.type.name
+                itemNameText.text = item.name
+                Glide.with(itemView.context).load(item.imageUrl).into(itemImage)
+                itemTypeText.text = item.type.name
             }
         }
     }
 
-    class YourLibraryItemDiffCallback : DiffUtil.ItemCallback<YourLibraryItem>() {
-        override fun areItemsTheSame(oldItem: YourLibraryItem, newItem: YourLibraryItem): Boolean {
+    class YourLibraryItemDiffCallback : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: YourLibraryItem,
-            newItem: YourLibraryItem
+            oldItem: Item,
+            newItem: Item
         ): Boolean {
             return oldItem == newItem
         }

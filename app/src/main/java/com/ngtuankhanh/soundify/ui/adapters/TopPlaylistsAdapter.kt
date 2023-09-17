@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.databinding.ItemTopPlaylistBinding
-import com.ngtuankhanh.soundify.ui.models.TrackCollection
+import com.ngtuankhanh.soundify.ui.models.CollectionItem
 
-class TopPlaylistsAdapter(private val onItemClick: (TrackCollection) -> Unit) : ListAdapter<TrackCollection, TopPlaylistsAdapter.TopPlaylistViewHolder>(TrackCollectionDiffCallback()) {
+class TopPlaylistsAdapter(private val onItemClick: (CollectionItem) -> Unit) : ListAdapter<CollectionItem, TopPlaylistsAdapter.TopPlaylistViewHolder>(TrackCollectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopPlaylistViewHolder {
         val binding = ItemTopPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +19,7 @@ class TopPlaylistsAdapter(private val onItemClick: (TrackCollection) -> Unit) : 
         holder.bind(getItem(position))
     }
 
-    inner class TopPlaylistViewHolder(private val binding: ItemTopPlaylistBinding, private val onItemClick: (TrackCollection) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    inner class TopPlaylistViewHolder(private val binding: ItemTopPlaylistBinding, private val onItemClick: (CollectionItem) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
@@ -30,10 +30,10 @@ class TopPlaylistsAdapter(private val onItemClick: (TrackCollection) -> Unit) : 
             }
         }
 
-        fun bind(trackCollection: TrackCollection) {
-            binding.playlistName.text = trackCollection.name
+        fun bind(collectionItem: CollectionItem) {
+            binding.playlistName.text = collectionItem.name
             Glide.with(binding.root)
-                .load(trackCollection.imageUrl)
+                .load(collectionItem.imageUrl)
                 .into(binding.playlistImage)
         }
     }

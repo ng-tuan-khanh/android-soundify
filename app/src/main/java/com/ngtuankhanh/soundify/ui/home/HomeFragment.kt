@@ -18,6 +18,7 @@ import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.FeaturedPlaylistsAdapter
 import com.ngtuankhanh.soundify.databinding.FragmentHomeBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
+import com.ngtuankhanh.soundify.ui.models.ItemType
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 
@@ -26,7 +27,10 @@ class HomeFragment : Fragment() {
 
     private val topPlaylistsAdapter by lazy {
         TopPlaylistsAdapter { playlist ->
-            val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(playlist.id)
+            val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(
+                collectionId = playlist.id,
+                type = ItemType.Playlist
+            )
             this.findNavController().navigate(action)
         }
     }
@@ -34,7 +38,10 @@ class HomeFragment : Fragment() {
     private val featuredPlaylistsAdapter by lazy {
         FeaturedPlaylistsAdapter(
             onPlaylistClick = { playlist ->
-                val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(playlist.id)
+                val action = HomeFragmentDirections.actionHomeFragmentToPlaylistDetailFragment(
+                    collectionId = playlist.id,
+                    type = ItemType.Playlist
+                )
                 this.findNavController().navigate(action)
             },
             onPlayClick = {
@@ -60,7 +67,7 @@ class HomeFragment : Fragment() {
 
         // Setup greeting text
         val currentTime = LocalTime.now().hour
-        binding.greetingText.text = when(currentTime) {
+        binding.greetingText.text = when (currentTime) {
             in 0..11 -> "Good morning"
             in 12..17 -> "Good afternoon"
             else -> "Good evening"
@@ -83,8 +90,18 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.featuredPlaylists.collect {
-                    topPlaylistsAdapter.submitList(if (it.size >= 6) it.subList(0, 6) else it.subList(0, it.size))
-                    featuredPlaylistsAdapter.submitList(if (it.size >= 6) it.subList(6, it.size) else emptyList())
+                    topPlaylistsAdapter.submitList(
+                        if (it.size >= 6) it.subList(
+                            0,
+                            6
+                        ) else it.subList(0, it.size)
+                    )
+                    featuredPlaylistsAdapter.submitList(
+                        if (it.size >= 6) it.subList(
+                            6,
+                            it.size
+                        ) else emptyList()
+                    )
                 }
             }
         }

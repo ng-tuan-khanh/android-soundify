@@ -1,10 +1,12 @@
 package com.ngtuankhanh.soundify.ui.models
-data class SearchItem (
+
+data class Item (
+    val id: String,
     val name: String,
-    var id: String,
     val imageUrl: String,
-    val type: ItemType) {
-}
+    val type: ItemType
+)
+
 enum class ItemType {
-    Playlist, Album, Artist, Track
+    Track, Album, Playlist, Artist
 }

@@ -1,10 +1,10 @@
 package com.ngtuankhanh.soundify.ui.models
 
-data class TrackCollection(
+data class CollectionItem(
     val id: String,
     val name: String,
-    val artistName: String,
+    val artistName: String? = null,
     val imageUrl: String,
     val totalTracks: Int,
-    var isSoundOn: Boolean = false
+    val type: ItemType
 )

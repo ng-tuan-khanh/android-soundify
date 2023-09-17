@@ -1,10 +1,12 @@
 package com.ngtuankhanh.soundify.ui.models
 
-class Artist {
+import com.ngtuankhanh.soundify.data.models.Playlist
+
+class ArtistItem {
     var name: String? = null
     var id: String? = null
     //lateinit var avatarImage: Image
     //lateinit var backgroundImage: Image
-    var listOfTracks: List<Track> = listOf()
-    var listOfAlbums: List<PlaylistIcon> = listOf()
+    var listOfTrackItems: List<TrackItem> = listOf()
+    var listOfAlbums: List<Playlist> = listOf()
 }

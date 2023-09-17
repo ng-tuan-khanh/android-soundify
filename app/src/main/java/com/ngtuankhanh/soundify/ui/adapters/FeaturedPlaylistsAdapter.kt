@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ngtuankhanh.soundify.databinding.ItemFeaturedPlaylistBinding
 import com.bumptech.glide.Glide
-import com.ngtuankhanh.soundify.ui.models.TrackCollection
+import com.ngtuankhanh.soundify.ui.models.CollectionItem
 
 class FeaturedPlaylistsAdapter(
-    private val onPlaylistClick: (TrackCollection) -> Unit,
+    private val onPlaylistClick: (CollectionItem) -> Unit,
     private val onPlayClick: () -> Unit
-) : ListAdapter<TrackCollection, FeaturedPlaylistsAdapter.FeaturedPlaylistsViewHolder>(TrackCollectionDiffCallback()) {
+) : ListAdapter<CollectionItem, FeaturedPlaylistsAdapter.FeaturedPlaylistsViewHolder>(TrackCollectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeaturedPlaylistsViewHolder {
         val binding = ItemFeaturedPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -36,13 +36,13 @@ class FeaturedPlaylistsAdapter(
             }
         }
 
-        fun bind(trackCollection: TrackCollection) {
+        fun bind(collectionItem: CollectionItem) {
             binding.apply {
-                trackNameText.text = trackCollection.name
-                albumNameText.text = trackCollection.name
-                artistName.text = trackCollection.artistName
-                trackCountText.text = "${trackCollection.totalTracks} tracks"
-                Glide.with(itemView.context).load(trackCollection.imageUrl).into(albumImage)
+                trackNameText.text = collectionItem.name
+                albumNameText.text = collectionItem.name
+                artistName.text = collectionItem.artistName
+                trackCountText.text = "${collectionItem.totalTracks} tracks"
+                Glide.with(itemView.context).load(collectionItem.imageUrl).into(albumImage)
             }
         }
     }

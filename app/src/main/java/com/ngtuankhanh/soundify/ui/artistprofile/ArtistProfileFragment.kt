@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import com.ngtuankhanh.soundify.databinding.FragmentArtistProfileBinding
 import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.TrackListAdapter
-import com.ngtuankhanh.soundify.ui.models.Artist
-import com.ngtuankhanh.soundify.ui.models.PlaylistIcon
-import com.ngtuankhanh.soundify.ui.models.Track
+import com.ngtuankhanh.soundify.ui.models.ArtistItem
 
 class ArtistProfileFragment : Fragment() {
     private lateinit var binding: FragmentArtistProfileBinding
@@ -26,46 +24,46 @@ class ArtistProfileFragment : Fragment() {
         //val artistId = arguments?.getString("artistId")
 
         // Sử dụng artistId để lấy thông tin và hiển thị - ở đây tôi sẽ giả lập việc này
-        val dummyArtist = getDummyArtist()
-        displayArtistInfo(dummyArtist)
+        //val dummyArtist = getDummyArtist()
+        //displayArtistInfo(dummyArtist)
 
         return binding.root
     }
 
-    private fun getDummyArtist(): Artist {
-        val artist = Artist()
-        artist.name = "Artist Name"
+//    private fun getDummyArtist(): ArtistItem {
+//        val artistItem = ArtistItem()
+//        artistItem.name = "Artist Name"
+//
+//        // Tạo Track giả mạo
+//        val dummyTrack1Item = TrackItem().apply {
+//            name = "Dummy Track 1"
+//            // Set các trường khác của Track nếu cần
+//        }
+//        val dummyTrack2Item = TrackItem().apply {
+//            name = "Dummy Track 2"
+//            // Set các trường khác của Track nếu cần
+//        }
+//
+//        artistItem.listOfTrackItems = listOf(dummyTrack1Item, dummyTrack2Item)
+//
+//        // Tạo PlaylistIcon giả mạo
+//        val dummyPlaylistIcon1 = PlaylistIcon().apply {
+//            name = "Dummy Playlist 1"
+//            // Set các trường khác của PlaylistIcon nếu cần, ví dụ như backgroundImage
+//        }
+//        val dummyPlaylistIcon2 = PlaylistIcon().apply {
+//            name = "Dummy Playlist 2"
+//            // Set các trường khác của PlaylistIcon nếu cần
+//        }
+//
+//        artistItem.listOfAlbums = listOf(dummyPlaylistIcon1, dummyPlaylistIcon2)
+//
+//        return artistItem
+//    }
 
-        // Tạo Track giả mạo
-        val dummyTrack1 = Track().apply {
-            name = "Dummy Track 1"
-            // Set các trường khác của Track nếu cần
-        }
-        val dummyTrack2 = Track().apply {
-            name = "Dummy Track 2"
-            // Set các trường khác của Track nếu cần
-        }
 
-        artist.listOfTracks = listOf(dummyTrack1, dummyTrack2)
-
-        // Tạo PlaylistIcon giả mạo
-        val dummyPlaylistIcon1 = PlaylistIcon().apply {
-            name = "Dummy Playlist 1"
-            // Set các trường khác của PlaylistIcon nếu cần, ví dụ như backgroundImage
-        }
-        val dummyPlaylistIcon2 = PlaylistIcon().apply {
-            name = "Dummy Playlist 2"
-            // Set các trường khác của PlaylistIcon nếu cần
-        }
-
-        artist.listOfAlbums = listOf(dummyPlaylistIcon1, dummyPlaylistIcon2)
-
-        return artist
-    }
-
-
-    private fun displayArtistInfo(artist: Artist) {
-        binding.artistFragmentArtistName.text = artist.name
+    private fun displayArtistInfo(artistItem: ArtistItem) {
+        binding.artistFragmentArtistName.text = artistItem.name
         // Cần thiết lập ảnh cho avatar và background ở đây nếu bạn muốn
 
         binding.artistFragmentAlbumsRecyclerView.apply {
@@ -77,7 +75,7 @@ class ArtistProfileFragment : Fragment() {
         binding.artistFragmentTracksRecyclerView.apply {
             adapter = trackListAdapter
             // Cập nhật dữ liệu cho adapter
-            trackListAdapter.submitList(artist.listOfTracks)
+            trackListAdapter.submitList(artistItem.listOfTrackItems)
         }
     }
 }

@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.databinding.ItemTrackBinding
-import com.ngtuankhanh.soundify.ui.models.Track
+import com.ngtuankhanh.soundify.ui.models.TrackItem
 
-class TrackListAdapter(private val onPlayButtonClick: (Track) -> Unit) : ListAdapter<Track, TrackListAdapter.TrackViewHolder>(TrackDiffCallback()) {
+class TrackListAdapter(private val onPlayButtonClick: (TrackItem) -> Unit) :
+    ListAdapter<TrackItem, TrackListAdapter.TrackViewHolder>(TrackDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val binding = ItemTrackBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,29 +21,31 @@ class TrackListAdapter(private val onPlayButtonClick: (Track) -> Unit) : ListAda
         holder.bind(getItem(position))
     }
 
-    inner class TrackViewHolder(private val binding: ItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TrackViewHolder(private val binding: ItemTrackBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.itemTrackPlayButton.setOnClickListener {
-                val position = adapterPosition.takeIf { it != RecyclerView.NO_POSITION }
+            binding.playButton.setOnClickListener {
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION }
                     ?: return@setOnClickListener
                 onPlayButtonClick(getItem(position))
             }
         }
 
-        fun bind(track: Track) {
-            binding.itemTrackName.text = track.name
-//            Glide.with(binding.root)
-//                .load(track.backgroundImage.url)
-//                .into(binding.itemTrackImage)
-            // Here, I'm assuming you may want to also display the artist's name.
-            // If you add an artist's name to the Track model in the future, this is where you would set it.
-            // binding.itemTrackArtistName.text = track.artistName
+        fun bind(trackItem: TrackItem) {
+            binding.itemNameText.text = trackItem.name
+            Glide.with(binding.root)
+                .load(trackItem.imageUrl)
+                .into(binding.itemImage)
+            binding.itemTypeText.text = trackItem.artists.joinToString(", ")
         }
     }
 
-    class TrackDiffCallback : DiffUtil.ItemCallback<Track>() {
-        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean = oldItem == newItem
+    class TrackDiffCallback : DiffUtil.ItemCallback<TrackItem>() {
+        override fun areItemsTheSame(oldItem: TrackItem, newItem: TrackItem): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: TrackItem, newItem: TrackItem): Boolean =
+            oldItem == newItem
     }
 }

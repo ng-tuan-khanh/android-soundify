@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentYourLibraryBinding
 import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import com.ngtuankhanh.soundify.ui.adapters.YourLibraryItemsAdapter
-import com.ngtuankhanh.soundify.ui.models.LibraryItemType
+import com.ngtuankhanh.soundify.ui.models.ItemType
 import kotlinx.coroutines.launch
 
 class YourLibraryFragment : Fragment() {
@@ -20,15 +20,15 @@ class YourLibraryFragment : Fragment() {
     private val adapter by lazy {
         YourLibraryItemsAdapter() { item ->
             when (item.type) {
-                LibraryItemType.Playlist -> {
+                ItemType.Playlist -> {
                     val action =
                         YourLibraryFragmentDirections.actionLibraryFragmentToPlaylistDetailFragment(
-                            item.id
+                            item.id, ItemType.Playlist
                         )
                     this.findNavController().navigate(action)
                 }
 
-                LibraryItemType.Artist -> {
+                ItemType.Artist -> {
                     val action =
                         YourLibraryFragmentDirections.actionLibraryFragmentToArtistProfileFragment(
                             item.id

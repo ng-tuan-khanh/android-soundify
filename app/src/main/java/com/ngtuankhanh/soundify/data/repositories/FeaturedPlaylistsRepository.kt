@@ -39,9 +39,9 @@ class FeaturedPlaylistsRepository(private val activity: BaseActivity?) {
                     res.add(
                         Playlist(
                             id = it.id,
-                            images = it.images,
                             name = it.name,
-                            owner = it.owner,
+                            images = it.images,
+                            description = it.description,
                             tracks = it.tracks.items.map {it.track}
                         )
                     )

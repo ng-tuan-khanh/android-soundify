@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.ngtuankhanh.soundify.data.repositories.SearchItemsRepository
 import com.ngtuankhanh.soundify.ui.activities.BaseActivity
-import com.ngtuankhanh.soundify.ui.models.SearchItem
+import com.ngtuankhanh.soundify.ui.models.Item
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,8 +15,8 @@ class SearchViewModel(activity: BaseActivity?) : ViewModel() {
     private val _repository = SearchItemsRepository(activity)
     private var _queryJob: Job = Job()
 
-    private val _searchResults = MutableStateFlow(emptyList<SearchItem>())
-    val searchResults: StateFlow<List<SearchItem>> = _searchResults
+    private val _searchResults = MutableStateFlow(emptyList<Item>())
+    val searchResults: StateFlow<List<Item>> = _searchResults
 
     fun searchForItems(query: String) {
         _queryJob.cancel()

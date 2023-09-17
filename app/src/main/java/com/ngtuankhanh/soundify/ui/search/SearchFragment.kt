@@ -14,29 +14,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentSearchBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.SearchItemsAdapter
-import com.ngtuankhanh.soundify.ui.models.SearchItem
+import com.ngtuankhanh.soundify.ui.models.Item
 import kotlinx.coroutines.launch
 
 interface OnSearchItemClickListener {
-    fun onTrackClicked(track: SearchItem)
-    fun onArtistClicked(artist: SearchItem)
-    fun onPlaylistClicked(playlist: SearchItem)
+    fun onTrackClicked(track: Item)
+    fun onArtistClicked(artist: Item)
+    fun onCollectionClicked(collection: Item)
 }
 
 class SearchFragment : Fragment(), OnSearchItemClickListener {
     private lateinit var binding: FragmentSearchBinding
 
-    override fun onTrackClicked(track: SearchItem) {
+    override fun onTrackClicked(track: Item) {
         // Logic khi một track được nhấp vào
     }
 
-    override fun onArtistClicked(artist: SearchItem) {
+    override fun onArtistClicked(artist: Item) {
         val action = SearchFragmentDirections.actionSearchFragmentToArtistProfileFragment(artist.id)
         view?.findNavController()?.navigate(action)
     }
 
-    override fun onPlaylistClicked(playlist: SearchItem) {
-        val action = SearchFragmentDirections.actionSearchFragmentToPlaylistDetailFragment(playlist.id)
+    override fun onCollectionClicked(item: Item) {
+        val action = SearchFragmentDirections.actionSearchFragmentToPlaylistDetailFragment(
+            collectionId = item.id,
+            type = item.type
+        )
         view?.findNavController()?.navigate(action)
     }
 

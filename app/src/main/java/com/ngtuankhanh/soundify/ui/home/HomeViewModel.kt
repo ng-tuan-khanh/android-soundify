@@ -3,30 +3,30 @@ package com.ngtuankhanh.soundify.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.data.repositories.FeaturedPlaylistsRepository
 import com.ngtuankhanh.soundify.ui.activities.BaseActivity
-import com.ngtuankhanh.soundify.ui.models.TrackCollection
+import com.ngtuankhanh.soundify.ui.models.CollectionItem
+import com.ngtuankhanh.soundify.ui.models.ItemType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(activity: BaseActivity?) : ViewModel() {
     private val _repository = FeaturedPlaylistsRepository(activity)
-    private val _featuredPlaylists = MutableStateFlow(emptyList<TrackCollection>())
-    val featuredPlaylists: StateFlow<List<TrackCollection>>
+    private val _featuredPlaylists = MutableStateFlow(emptyList<CollectionItem>())
+    val featuredPlaylists: StateFlow<List<CollectionItem>>
         get() = _featuredPlaylists
 
     init {
         viewModelScope.launch {
             _repository.getFeaturedPlaylists().collect { list ->
                 _featuredPlaylists.value = list.map {
-                    TrackCollection(
+                    CollectionItem(
                         id = it.id,
                         name = it.name,
-                        artistName = it.owner.displayName ?: "",
                         imageUrl = it.images[0]?.url ?: "",
-                        totalTracks = it.tracks.size
+                        totalTracks = it.tracks.size,
+                        type = ItemType.Playlist
                     )
                 }
             }

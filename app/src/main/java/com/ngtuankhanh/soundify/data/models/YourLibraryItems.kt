@@ -4,8 +4,8 @@ import com.adamratzman.spotify.models.Album
 import com.adamratzman.spotify.models.Artist
 import com.adamratzman.spotify.models.SimplePlaylist
 import com.adamratzman.spotify.models.Track
-import com.ngtuankhanh.soundify.ui.models.LibraryItemType
-import com.ngtuankhanh.soundify.ui.models.YourLibraryItem
+import com.ngtuankhanh.soundify.ui.models.ItemType
+import com.ngtuankhanh.soundify.ui.models.Item
 
 data class YourLibraryItems(
     val tracks: List<Track>,
@@ -13,38 +13,38 @@ data class YourLibraryItems(
     val playlists: List<SimplePlaylist>,
     val artists: List<Artist>
 ) {
-    fun toUIModels(): List<YourLibraryItem> {
-        val items = mutableListOf<YourLibraryItem>()
+    fun toUIModels(): List<Item> {
+        val items = mutableListOf<Item>()
         items.addAll(tracks.map {
-            YourLibraryItem(
+            Item(
                 id = it.id,
                 name = it.name,
                 imageUrl = it.album.images[0].url,
-                type = LibraryItemType.Track
+                type = ItemType.Track
             )
         })
         items.addAll(albums.map {
-            YourLibraryItem(
+            Item(
                 id = it.id,
                 name = it.name,
                 imageUrl = it.images[0].url,
-                type = LibraryItemType.Album
+                type = ItemType.Album
             )
         })
         items.addAll(playlists.map {
-            YourLibraryItem(
+            Item(
                 id = it.id,
                 name = it.name,
                 imageUrl = it.images[0].url,
-                type = LibraryItemType.Playlist
+                type = ItemType.Playlist
             )
         })
         items.addAll(artists.map {
-            YourLibraryItem(
+            Item(
                 id = it.id,
                 name = it.name,
                 imageUrl = it.images[0].url,
-                type = LibraryItemType.Artist
+                type = ItemType.Artist
             )
         })
         return items.shuffled()
