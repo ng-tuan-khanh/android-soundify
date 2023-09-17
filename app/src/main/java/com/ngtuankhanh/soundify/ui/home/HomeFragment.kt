@@ -1,8 +1,10 @@
 package com.ngtuankhanh.soundify.ui.home
 
-import android.annotation.SuppressLint
+import android.R
+import android.content.ContentValues.TAG
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +16,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
-import com.ngtuankhanh.soundify.ui.adapters.FeaturedPlaylistsAdapter
 import com.ngtuankhanh.soundify.databinding.FragmentHomeBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
+import com.ngtuankhanh.soundify.ui.adapters.FeaturedPlaylistsAdapter
+import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.models.ItemType
 import kotlinx.coroutines.launch
 import java.time.LocalTime
+
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -52,7 +55,6 @@ class HomeFragment : Fragment() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,7 +89,7 @@ class HomeFragment : Fragment() {
         binding.featuredPlaylistsRecyclerView.adapter = featuredPlaylistsAdapter
 
         // Observe data from HomeViewModel
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.featuredPlaylists.collect {
                     topPlaylistsAdapter.submitList(

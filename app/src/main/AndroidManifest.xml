@@ -37,13 +37,17 @@
             android:theme="@style/Theme.Soundify"
             android:windowSoftInputMode="adjustNothing|stateVisible">
 
+        </activity>
+
+        <activity
+            android:name=".auth.SpotifyImplicitLoginActivityImpl"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="soundify" />
+                <data android:scheme="soundify" android:host="spotify-auth" />
             </intent-filter>
-
         </activity>
 
         <activity
@@ -59,6 +63,15 @@
                 <data
                     android:host="spotify-pkce"
                     android:scheme="soundify" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.spotify.sdk.android.auth.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" android:exported="false">
+
+            <intent-filter>
+                <data android:scheme="soundify" android:host="spotify-auth" />
             </intent-filter>
         </activity>
     </application>

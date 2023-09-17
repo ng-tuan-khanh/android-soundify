@@ -18,6 +18,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+            //storePassword = property("keystorePassword") as String
+            keyAlias = "androiddebugkey"
+            //keyPassword = property("debugKeyPassword") as String
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
