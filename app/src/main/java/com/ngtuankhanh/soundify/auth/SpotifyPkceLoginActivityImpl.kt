@@ -24,13 +24,11 @@ class SpotifyPkceLoginActivityImpl : AbstractSpotifyPkceLoginActivity() {
         pkceClassBackTo = null
         toast("Authentication via PKCE has completed. Launching ${classBackTo.simpleName}..")
         startActivity(Intent(this, classBackTo))
-        finish()
     }
 
     override fun onFailure(exception: Exception) {
         exception.printStackTrace()
         pkceClassBackTo = null
         toast("Auth failed: ${exception.message}")
-        finish()
     }
 }

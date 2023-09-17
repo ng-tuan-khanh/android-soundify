@@ -1,7 +1,6 @@
 package com.ngtuankhanh.soundify.ui.playlistdetail
 
 import androidx.lifecycle.ViewModel
-import com.ngtuankhanh.soundify.ui.models.Image
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.ngtuankhanh.soundify.ui.models.Track
@@ -35,7 +34,7 @@ class PlaylistDetailViewModel : ViewModel() {
             val track = Track().apply {
                 id = i.toString()
                 name = "Track $i"
-                backgroundImage = Image("")
+                //backgroundImage = Image("")
             }
             dummyTracks.add(track)
         }

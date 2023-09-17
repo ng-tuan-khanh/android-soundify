@@ -67,7 +67,7 @@ class SearchFragment : Fragment(), OnSearchItemClickListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchResults.collect { results ->
-                searchItemsAdapter.submitList(results) // CHANGED: Trực tiếp truyền results vào mà không cần qua thuộc tính items
+                searchItemsAdapter.submitList(results)
             }
         }
 
@@ -75,7 +75,7 @@ class SearchFragment : Fragment(), OnSearchItemClickListener {
     }
 
     private fun setupRecyclerView() {
-        binding.searchResultsRecyclerview.apply {
+        binding.searchResultsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = searchItemsAdapter
         }

@@ -30,9 +30,9 @@
 
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.ngtuankhanh.soundify.ui.yourlibrary.LibraryFragment"
+        android:name="com.ngtuankhanh.soundify.ui.yourlibrary.YourLibraryFragment"
         android:label="Library"
-        tools:layout="@layout/fragment_library" >
+        tools:layout="@layout/fragment_your_library" >
         <action
             android:id="@+id/action_libraryFragment_to_artistProfileFragment"
             app:destination="@id/artistProfileFragment" />

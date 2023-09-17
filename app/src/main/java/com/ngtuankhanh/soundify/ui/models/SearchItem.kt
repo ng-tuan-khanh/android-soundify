@@ -2,7 +2,7 @@ package com.ngtuankhanh.soundify.ui.models
 data class SearchItem (
     val name: String,
     var id: String,
-    val avatarImage: Image,
+    val imageUrl: String,
     val type: ItemType) {
 }
 enum class ItemType {

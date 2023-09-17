@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.databinding.ItemTrackBinding
-import com.ngtuankhanh.soundify.ui.models.Image
 import com.ngtuankhanh.soundify.ui.models.Track
 
 class TrackListAdapter(private val onPlayButtonClick: (Track) -> Unit) : ListAdapter<Track, TrackListAdapter.TrackViewHolder>(TrackDiffCallback()) {
@@ -33,9 +32,9 @@ class TrackListAdapter(private val onPlayButtonClick: (Track) -> Unit) : ListAda
 
         fun bind(track: Track) {
             binding.itemTrackName.text = track.name
-            Glide.with(binding.root)
-                .load(track.backgroundImage.url)
-                .into(binding.itemTrackImage)
+//            Glide.with(binding.root)
+//                .load(track.backgroundImage.url)
+//                .into(binding.itemTrackImage)
             // Here, I'm assuming you may want to also display the artist's name.
             // If you add an artist's name to the Track model in the future, this is where you would set it.
             // binding.itemTrackArtistName.text = track.artistName

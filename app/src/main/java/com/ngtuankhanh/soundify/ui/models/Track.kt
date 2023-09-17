@@ -3,7 +3,7 @@ package com.ngtuankhanh.soundify.ui.models
 class Track {
     var name: String? = null
     var id: String? = null
-    lateinit var backgroundImage: Image
+    //lateinit var backgroundImage: Image
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

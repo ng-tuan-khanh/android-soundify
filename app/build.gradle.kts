@@ -39,6 +39,17 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"ac653b4746e14e34a00db6f7db7dd85c\"")
+            buildConfigField(
+                "String",
+                "SPOTIFY_REDIRECT_URI_AUTH",
+                "\"soundify://spotify-auth\""
+            )
+            buildConfigField(
+                "String",
+                "SPOTIFY_REDIRECT_URI_PKCE",
+                "\"soundify://spotify-pkce\""
+            )
         }
     }
     compileOptions {

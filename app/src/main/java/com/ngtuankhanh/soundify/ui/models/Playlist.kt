@@ -5,13 +5,13 @@ class Playlist {
     var id: String? = null
     var ownerId: String? = null
     var albumID: String? = null
-    lateinit var backgroundImage: Image
-    lateinit var totalFollower: Followers
+    //lateinit var backgroundImage: Image
+    //lateinit var totalFollower: Followers
     var listOfTracks: List<Track> = listOf()
 }
 
 class PlaylistIcon {
     var name: String? = null
     var id: String? = null
-    lateinit var backgroundImage: Image
+    //lateinit var backgroundImage: Image
 }
