@@ -18,6 +18,7 @@ data class SearchResults (
             Item(
                 name = it.name,
                 id = it.id,
+                artists = it.artists.map { it.name },
                 imageUrl = it.images.firstOrNull()?.url ?: "",
                 type = ItemType.Album
             )
@@ -39,6 +40,7 @@ data class SearchResults (
             Item(
                 name = it.name,
                 id = it.id,
+                artists = it.artists.map { it.name },
                 imageUrl = it.album.images.firstOrNull()?.url ?: "",
                 type = ItemType.Track
             )
