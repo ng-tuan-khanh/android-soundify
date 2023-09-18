@@ -27,7 +27,7 @@ class SearchFragment : Fragment(), OnSearchItemClickListener {
     private lateinit var binding: FragmentSearchBinding
 
     override fun onTrackClicked(track: Item) {
-        // Logic khi một track được nhấp vào
+        (requireActivity() as HomeActivity).changeCurrentTrack(track)
     }
 
     override fun onArtistClicked(artist: Item) {

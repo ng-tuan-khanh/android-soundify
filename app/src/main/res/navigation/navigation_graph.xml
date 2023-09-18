@@ -53,6 +53,9 @@
         <argument
             android:name="type"
             app:argType="com.ngtuankhanh.soundify.ui.models.ItemType" />
+        <action
+            android:id="@+id/action_playlistDetailFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment" />
 
     </fragment>
 
@@ -76,15 +79,10 @@
         android:label="MusicPlayerFragment"
         tools:layout="@layout/fragment_music_player">
 
-        <argument
-            android:name="trackId"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="true"/>
-
         <deepLink
             android:id="@+id/deepLinkToMusicPlayer"
-            app:uri="soundify://musicplayer/{trackId}"/>
+            app:uri="soundify://musicplayer"/>
     </fragment>
+
 
 </navigation>

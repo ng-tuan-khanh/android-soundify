@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.FragmentMusicPlayerBinding
 import com.ngtuankhanh.soundify.ui.activities.BaseActivity
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
+import com.ngtuankhanh.soundify.ui.models.TrackItem
 
 
 enum class PlayerState {
@@ -23,6 +26,7 @@ class MusicPlayerFragment : Fragment() {
     private lateinit var binding: FragmentMusicPlayerBinding
     private lateinit var player: ExoPlayer
     private var playerState = PlayerState.PAUSED
+    lateinit var track: TrackItem
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,22 +35,32 @@ class MusicPlayerFragment : Fragment() {
             inflater, R.layout.fragment_music_player, container, false
         )
 
+        (requireActivity() as HomeActivity).hideStreamingBar()
+
         val musicPlayerViewModelFactory = MusicPlayerViewModel.Factory(requireActivity() as HomeActivity)
         val musicPlayerViewModel =
             ViewModelProvider(
                 this,
                 musicPlayerViewModelFactory
             ).get(MusicPlayerViewModel::class.java)
+        track = (requireActivity() as HomeActivity).currentTrack!!
 
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewModel = musicPlayerViewModel
+        Glide.with(binding.root)
+            .load(track.imageUrl)
+            .into(binding.artworkImageView)
 
-        player = ExoPlayer.Builder(requireContext()).build()
+        binding.songNameTextView.text = track.name
+        binding.artistTextView.text = track.artists.joinToString(", ")
 
-        val mediaItem =
-            MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
-        player.setMediaItem(mediaItem)
-        player.prepare()
+        player = (requireActivity() as HomeActivity).player
+        playerState = (requireActivity() as HomeActivity).playerState
+        if (playerState == PlayerState.PLAYING) {
+            binding.playButton.setImageResource(R.drawable.pause_circle_fill)
+        } else {
+            binding.playButton.setImageResource(R.drawable.play_circle_fill)
+        }
 
         binding.playButton.setOnClickListener {
             playerState = if (playerState == PlayerState.PAUSED) {
@@ -58,6 +72,11 @@ class MusicPlayerFragment : Fragment() {
                 binding.playButton.setImageResource(R.drawable.play_circle_fill)
                 PlayerState.PAUSED
             }
+        }
+
+        binding.upButton.setOnClickListener {
+            (requireActivity() as HomeActivity).showStreamingBar()
+            findNavController().navigateUp()
         }
 
         binding.previousButton.setOnClickListener {

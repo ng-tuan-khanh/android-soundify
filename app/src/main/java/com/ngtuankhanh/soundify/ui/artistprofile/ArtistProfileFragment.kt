@@ -14,8 +14,8 @@ class ArtistProfileFragment : Fragment() {
     private lateinit var binding: FragmentArtistProfileBinding
 
     // Giả lập việc tạo Adapters
-    private val topPlaylistsAdapter by lazy { TopPlaylistsAdapter {} }
-    private val trackListAdapter by lazy { TrackListAdapter {} }
+    private val topPlaylistsAdapter by lazy { TopPlaylistsAdapter(onItemClick = {}) }
+    private val trackListAdapter by lazy { TrackListAdapter(onTrackClick = {}, onPlayButtonClick = {} ) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

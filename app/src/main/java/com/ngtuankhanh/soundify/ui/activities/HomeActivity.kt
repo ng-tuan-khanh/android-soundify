@@ -4,31 +4,50 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.findNavController
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.ActivityHomeBinding
+import com.ngtuankhanh.soundify.ui.models.TrackItem
+import com.ngtuankhanh.soundify.ui.musicplayer.PlayerState
 
 class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private var currentTrackId: String = ""
+    var playerState = PlayerState.PAUSED
+    lateinit var player: ExoPlayer
+    var currentTrack: TrackItem ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        player = ExoPlayer.Builder(this).build()
+
         binding.streamingButton.setOnClickListener {
-            val isSelected = it.isSelected
-            it.isSelected = !isSelected
-            // Thực hiện logic play/pause tại đây
+            playerState = if (playerState == PlayerState.PAUSED) {
+                player.play()
+                binding.streamingButton.setImageResource(R.drawable.pause_circle_fill)
+                PlayerState.PLAYING
+            } else {
+                player.pause()
+                binding.streamingButton.setImageResource(R.drawable.play_circle_fill)
+                PlayerState.PAUSED
+            }
         }
 
         binding.streamingBar.setOnClickListener {
-            val trackIdUri = Uri.parse("soundify://musicplayer/$currentTrackId")
-            findNavController(R.id.nav_host_fragment).navigate(trackIdUri)
+            if (currentTrack == null) {
+                Toast.makeText(this,"No song stream right now!", Toast.LENGTH_SHORT).show()
+            } else {
+                val deepLinkUri = Uri.parse("soundify://musicplayer")
+                findNavController(R.id.nav_host_fragment).navigate(deepLinkUri)
+            }
         }
-
-
 
         hideNavigationBar()
 
@@ -47,6 +66,22 @@ class HomeActivity : BaseActivity() {
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         decorView.systemUiVisibility = uiOptions
+    }
+
+    fun changeCurrentTrack(track: TrackItem) {
+        Glide.with(binding.root)
+            .load(track.imageUrl)
+            .into(binding.streamingSongImage)
+        currentTrack = track
+        binding.streamingSongName.text = track.name
+        binding.streamingSongArtist.text = track.artists.joinToString(", ")
+        val mediaItem =
+            MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
+        player.setMediaItem(mediaItem)
+        player.prepare()
+        player.play()
+        playerState = PlayerState.PLAYING
+        binding.streamingButton.setImageResource(R.drawable.pause_circle_fill)
     }
 
     // Function to show the streaming bar

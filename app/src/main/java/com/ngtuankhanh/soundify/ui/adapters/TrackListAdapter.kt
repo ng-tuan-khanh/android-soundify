@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.databinding.ItemTrackBinding
 import com.ngtuankhanh.soundify.ui.models.TrackItem
 
-class TrackListAdapter(private val onPlayButtonClick: (TrackItem) -> Unit) :
+class TrackListAdapter(private val onPlayButtonClick: (TrackItem) -> Unit, private val onTrackClick: (TrackItem) -> Unit) :
     ListAdapter<TrackItem, TrackListAdapter.TrackViewHolder>(TrackDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -30,6 +30,13 @@ class TrackListAdapter(private val onPlayButtonClick: (TrackItem) -> Unit) :
                     ?: return@setOnClickListener
                 onPlayButtonClick(getItem(position))
             }
+
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION }
+                    ?: return@setOnClickListener
+                onTrackClick(getItem(position))
+            }
+
         }
 
         fun bind(trackItem: TrackItem) {

@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ngtuankhanh.soundify.databinding.FragmentHomeBinding
@@ -21,6 +22,7 @@ import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.FeaturedPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.models.ItemType
+import com.ngtuankhanh.soundify.ui.musicplayer.PlayerState
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 
