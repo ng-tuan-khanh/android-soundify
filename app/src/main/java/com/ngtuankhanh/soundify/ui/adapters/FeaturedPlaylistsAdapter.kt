@@ -9,8 +9,7 @@ import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.ui.models.CollectionItem
 
 class FeaturedPlaylistsAdapter(
-    private val onPlaylistClick: (CollectionItem) -> Unit,
-    private val onPlayClick: () -> Unit
+    private val onPlaylistClick: (CollectionItem) -> Unit
 ) : ListAdapter<CollectionItem, FeaturedPlaylistsAdapter.FeaturedPlaylistsViewHolder>(TrackCollectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeaturedPlaylistsViewHolder {
@@ -29,10 +28,6 @@ class FeaturedPlaylistsAdapter(
                 if (position != RecyclerView.NO_POSITION) {
                     onPlaylistClick(getItem(position))
                 }
-            }
-
-            binding.playButton.setOnClickListener {
-                onPlayClick()
             }
         }
 

@@ -46,9 +46,6 @@ class HomeFragment : Fragment() {
                     type = ItemType.Playlist
                 )
                 this.findNavController().navigate(action)
-            },
-            onPlayClick = {
-                // Thêm logic để phát nhạc vào đây
             }
         )
     }
