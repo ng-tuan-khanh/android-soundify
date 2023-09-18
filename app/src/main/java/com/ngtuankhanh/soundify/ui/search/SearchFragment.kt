@@ -15,6 +15,7 @@ import com.ngtuankhanh.soundify.databinding.FragmentSearchBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.SearchItemsAdapter
 import com.ngtuankhanh.soundify.ui.models.Item
+import com.ngtuankhanh.soundify.ui.models.TrackItem
 import kotlinx.coroutines.launch
 
 interface OnSearchItemClickListener {
@@ -27,7 +28,8 @@ class SearchFragment : Fragment(), OnSearchItemClickListener {
     private lateinit var binding: FragmentSearchBinding
 
     override fun onTrackClicked(track: Item) {
-        (requireActivity() as HomeActivity).changeCurrentTrack(track)
+        val _track = TrackItem(id = track.id, name = track.name, artists = track.artists, imageUrl = track.imageUrl)
+       (requireActivity() as HomeActivity).changeCurrentTrack(_track)
     }
 
     override fun onArtistClicked(artist: Item) {

@@ -70,6 +70,9 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true"/>
+        <action
+            android:id="@+id/action_artistProfileFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment" />
 
     </fragment>
 

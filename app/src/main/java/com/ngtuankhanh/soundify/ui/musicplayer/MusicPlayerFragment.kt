@@ -37,16 +37,9 @@ class MusicPlayerFragment : Fragment() {
 
         (requireActivity() as HomeActivity).hideStreamingBar()
 
-        val musicPlayerViewModelFactory = MusicPlayerViewModel.Factory(requireActivity() as HomeActivity)
-        val musicPlayerViewModel =
-            ViewModelProvider(
-                this,
-                musicPlayerViewModelFactory
-            ).get(MusicPlayerViewModel::class.java)
         track = (requireActivity() as HomeActivity).currentTrack!!
 
         binding.lifecycleOwner = this.viewLifecycleOwner
-        binding.viewModel = musicPlayerViewModel
         Glide.with(binding.root)
             .load(track.imageUrl)
             .into(binding.artworkImageView)
@@ -76,7 +69,7 @@ class MusicPlayerFragment : Fragment() {
 
         binding.upButton.setOnClickListener {
             (requireActivity() as HomeActivity).showStreamingBar()
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
 
         binding.previousButton.setOnClickListener {

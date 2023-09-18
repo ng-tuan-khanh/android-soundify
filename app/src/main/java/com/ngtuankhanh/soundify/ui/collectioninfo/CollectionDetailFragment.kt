@@ -22,22 +22,24 @@ import kotlinx.coroutines.launch
 class CollectionDetailFragment : Fragment() {
     private lateinit var binding: FragmentCollectionDetailBinding
     private lateinit var viewModel: CollectionDetailViewModel
-    private val trackListAdapter = TrackListAdapter(
-        onPlayButtonClick = { trackItem: TrackItem ->
-            (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
-            Toast.makeText(
-                context,
-                "Playing track ${trackItem.name}",
-                Toast.LENGTH_SHORT
-            ).show()
-        },
-        onTrackClick = { trackItem: TrackItem ->
-            (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
-            val action = CollectionDetailFragmentDirections.actionPlaylistDetailFragmentToMusicPlayerFragment()
-            findNavController().navigate(action)
-        }
-    )
-
+    private val trackListAdapter by lazy {
+        TrackListAdapter(
+            onPlayButtonClick = { trackItem: TrackItem ->
+                (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
+                Toast.makeText(
+                    context,
+                    "Playing track ${trackItem.name}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onTrackClick = { trackItem: TrackItem ->
+                (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
+                val action =
+                    CollectionDetailFragmentDirections.actionPlaylistDetailFragmentToMusicPlayerFragment()
+                findNavController().navigate(action)
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

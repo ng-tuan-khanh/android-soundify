@@ -26,6 +26,8 @@ class HomeActivity : BaseActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        hideStreamingBar()
+
         player = ExoPlayer.Builder(this).build()
 
         binding.streamingButton.setOnClickListener {
@@ -69,6 +71,8 @@ class HomeActivity : BaseActivity() {
     }
 
     fun changeCurrentTrack(track: TrackItem) {
+        if (binding.streamingBar.visibility == View.GONE)
+            showStreamingBar()
         Glide.with(binding.root)
             .load(track.imageUrl)
             .into(binding.streamingSongImage)
@@ -97,6 +101,5 @@ class HomeActivity : BaseActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
-        return super.onSupportNavigateUp()
     }
 }

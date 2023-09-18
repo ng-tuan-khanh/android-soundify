@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,8 @@ import com.ngtuankhanh.soundify.databinding.FragmentArtistProfileBinding
 import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.TrackListAdapter
+import com.ngtuankhanh.soundify.ui.collectioninfo.CollectionDetailFragmentDirections
+import com.ngtuankhanh.soundify.ui.models.TrackItem
 import com.ngtuankhanh.soundify.utils.toast
 import kotlinx.coroutines.launch
 
@@ -21,7 +24,24 @@ class ArtistProfileFragment : Fragment() {
     private lateinit var binding: FragmentArtistProfileBinding
 
     private val topPlaylistsAdapter by lazy { TopPlaylistsAdapter {} }
-    private val trackListAdapter by lazy { TrackListAdapter {} }
+    private val trackListAdapter by lazy {
+        TrackListAdapter(
+            onPlayButtonClick = { trackItem: TrackItem ->
+                (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
+                Toast.makeText(
+                    context,
+                    "Playing track ${trackItem.name}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+            onTrackClick = { trackItem: TrackItem ->
+                (requireActivity() as HomeActivity).changeCurrentTrack(trackItem)
+                val action =
+                    ArtistProfileFragmentDirections.actionArtistProfileFragmentToMusicPlayerFragment()
+                findNavController().navigate(action)
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,7 +60,7 @@ class ArtistProfileFragment : Fragment() {
 
         // Set up the recycler views
         binding.albumsRecyclerView.apply {
-            layoutManager = object: LinearLayoutManager(context) {
+            layoutManager = object : LinearLayoutManager(context) {
                 override fun canScrollVertically(): Boolean {
                     return false
                 }
@@ -49,7 +69,7 @@ class ArtistProfileFragment : Fragment() {
         }
 
         binding.tracksRecyclerView.apply {
-            layoutManager = object: LinearLayoutManager(context) {
+            layoutManager = object : LinearLayoutManager(context) {
                 override fun canScrollVertically(): Boolean {
                     return false
                 }
