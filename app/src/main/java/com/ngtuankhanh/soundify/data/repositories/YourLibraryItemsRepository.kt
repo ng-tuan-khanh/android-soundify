@@ -83,8 +83,9 @@ class YourLibraryItemsRepository(private val activity: BaseActivity?) {
         _savedPlaylists,
         _followedArtists
     ) { savedTracks, savedAlbums, savedPlaylists, followedArtists ->
+        // TODO: Implement a saved track playlist
         YourLibraryItems(
-            tracks = savedTracks,
+            tracks = emptyList(),
             albums = savedAlbums,
             playlists = savedPlaylists,
             artists = followedArtists

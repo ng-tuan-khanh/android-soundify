@@ -30,7 +30,7 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
-            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"ac653b4746e14e34a00db6f7db7dd85c\"")
+            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"026b2ca1b7c249da8b3416cbaaf0cc2c\"")
             buildConfigField(
                 "String",
                 "SPOTIFY_REDIRECT_URI_AUTH",
@@ -48,7 +48,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"ac653b4746e14e34a00db6f7db7dd85c\"")
+            buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"026b2ca1b7c249da8b3416cbaaf0cc2c\"")
             buildConfigField(
                 "String",
                 "SPOTIFY_REDIRECT_URI_AUTH",

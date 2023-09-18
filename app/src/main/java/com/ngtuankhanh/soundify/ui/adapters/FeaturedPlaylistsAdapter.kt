@@ -38,7 +38,6 @@ class FeaturedPlaylistsAdapter(
 
         fun bind(collectionItem: CollectionItem) {
             binding.apply {
-                trackNameText.text = collectionItem.name
                 albumNameText.text = collectionItem.name
                 artistName.text = collectionItem.artistName
                 trackCountText.text = "${collectionItem.totalTracks} tracks"

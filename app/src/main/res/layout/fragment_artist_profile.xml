@@ -1,110 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBlack"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_margin="24dp">
+
+        <!-- Up Button -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/up_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:tint="@color/material_dynamic_neutral_variant80"
+            app:layout_constraintBottom_toTopOf="@+id/artist_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
 
         <!-- This is your artist background image -->
-        <ImageView
-            android:id="@+id/artist_fragment_artistBackgroundImage"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/artist_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_home"
-            android:scaleType="centerCrop" />
-
-        <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/artist_fragment_backButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:background="?android:selectableItemBackground"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_back" />
-
-        <!-- This is your artist avatar image that should overlap the background image -->
-
-        <!-- Artist Name next to the Avatar Image -->
-        <ImageView
-            android:id="@+id/artist_fragment_artistAvatarImage"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignBottom="@+id/artist_fragment_artistBackgroundImage"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="19dp"
+            android:layout_height="264dp"
+            android:layout_marginHorizontal="50dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_play_button" />
-
-        <TextView
-            android:id="@+id/artist_fragment_artistName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/artist_fragment_artistAvatarImage"
-            android:layout_alignBottom="@+id/artist_fragment_artistAvatarImage"
-            android:layout_marginStart="16dp"
-            android:text="Artist Name"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF" />
-
-        <!-- Artist Description -->
-        <TextView
-            android:id="@+id/artist_fragment_artistDescriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/artist_fragment_artistBackgroundImage"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"
-            android:textColor="@color/appWhite"
-            android:text="Artist description goes here..." />
-
-        <!-- Album Title -->
-        <TextView
-            android:id="@+id/artist_fragment_albumTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/artist_fragment_artistDescriptionTextView"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Albums"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF" />
-
-        <!-- Album List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/artist_fragment_albumsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/artist_fragment_albumTitleTextView"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintBottom_toTopOf="@+id/artist_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/up_button"
+            tools:layout_editor_absoluteX="50dp"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <!-- Track Title -->
-        <TextView
-            android:id="@+id/artist_fragment_trackTitleTextView"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tracks_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/artist_fragment_albumsRecyclerView"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:text="Tracks"
             android:textSize="20sp"
-            android:textColor="#FFFFFF" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tracks_recycler_view"
+            app:layout_constraintTop_toBottomOf="@+id/artist_name_text" />
 
         <!-- Tracks List -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/artist_fragment_tracksRecyclerView"
+            android:id="@+id/tracks_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/artist_fragment_trackTitleTextView"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/albums_text"
+            app:layout_constraintTop_toBottomOf="@+id/tracks_text" />
 
-    </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/artist_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tracks_text"
+            app:layout_constraintTop_toBottomOf="@+id/artist_image"
+            tools:text="Artist Name" />
+
+        <!-- Album Title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/albums_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Albums"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/albums_recycler_view"
+            app:layout_constraintTop_toBottomOf="@+id/tracks_recycler_view" />
+
+        <!-- Album List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/albums_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/albums_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

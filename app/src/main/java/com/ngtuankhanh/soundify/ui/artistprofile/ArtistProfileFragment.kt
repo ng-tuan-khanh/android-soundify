@@ -5,15 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.databinding.FragmentArtistProfileBinding
+import com.ngtuankhanh.soundify.ui.activities.HomeActivity
 import com.ngtuankhanh.soundify.ui.adapters.TopPlaylistsAdapter
 import com.ngtuankhanh.soundify.ui.adapters.TrackListAdapter
-import com.ngtuankhanh.soundify.ui.models.ArtistItem
+import com.ngtuankhanh.soundify.utils.toast
+import kotlinx.coroutines.launch
 
 class ArtistProfileFragment : Fragment() {
     private lateinit var binding: FragmentArtistProfileBinding
 
-    // Giả lập việc tạo Adapters
     private val topPlaylistsAdapter by lazy { TopPlaylistsAdapter {} }
     private val trackListAdapter by lazy { TrackListAdapter {} }
 
@@ -21,61 +27,71 @@ class ArtistProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentArtistProfileBinding.inflate(inflater, container, false)
-        //val artistId = arguments?.getString("artistId")
 
-        // Sử dụng artistId để lấy thông tin và hiển thị - ở đây tôi sẽ giả lập việc này
-        //val dummyArtist = getDummyArtist()
-        //displayArtistInfo(dummyArtist)
+        // Set up the view model
+        val viewModelFactory = ArtistProfileViewModel.Factory(requireActivity() as HomeActivity)
+        val viewModel =
+            ViewModelProvider(this, viewModelFactory).get(ArtistProfileViewModel::class.java)
+
+        // Set up the up button
+        binding.upButton.setOnClickListener {
+            this.findNavController().navigateUp()
+        }
+
+        // Set up the recycler views
+        binding.albumsRecyclerView.apply {
+            layoutManager = object: LinearLayoutManager(context) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+            adapter = topPlaylistsAdapter
+        }
+
+        binding.tracksRecyclerView.apply {
+            layoutManager = object: LinearLayoutManager(context) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+            adapter = trackListAdapter
+        }
+
+        val artistId = arguments?.getString("artistId")
+        if (artistId == null) {
+            this.findNavController().navigateUp()
+            toast(this.requireContext(), "Error requesting data. Returning to previous screen.")
+            return binding.root
+        }
+
+        viewModel.getArtistInfo(artistId)
+
+        // Observe data changes
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.imageUrl.collect {
+                Glide.with(this@ArtistProfileFragment)
+                    .load(it)
+                    .into(binding.artistImage)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.artistName.collect {
+                binding.artistNameText.text = it
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getAlbums(artistId)
+            viewModel.albums.collect {
+                topPlaylistsAdapter.submitList(it)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getTopTracks(artistId)
+            viewModel.tracks.collect {
+                trackListAdapter.submitList(it)
+            }
+        }
 
         return binding.root
-    }
-
-//    private fun getDummyArtist(): ArtistItem {
-//        val artistItem = ArtistItem()
-//        artistItem.name = "Artist Name"
-//
-//        // Tạo Track giả mạo
-//        val dummyTrack1Item = TrackItem().apply {
-//            name = "Dummy Track 1"
-//            // Set các trường khác của Track nếu cần
-//        }
-//        val dummyTrack2Item = TrackItem().apply {
-//            name = "Dummy Track 2"
-//            // Set các trường khác của Track nếu cần
-//        }
-//
-//        artistItem.listOfTrackItems = listOf(dummyTrack1Item, dummyTrack2Item)
-//
-//        // Tạo PlaylistIcon giả mạo
-//        val dummyPlaylistIcon1 = PlaylistIcon().apply {
-//            name = "Dummy Playlist 1"
-//            // Set các trường khác của PlaylistIcon nếu cần, ví dụ như backgroundImage
-//        }
-//        val dummyPlaylistIcon2 = PlaylistIcon().apply {
-//            name = "Dummy Playlist 2"
-//            // Set các trường khác của PlaylistIcon nếu cần
-//        }
-//
-//        artistItem.listOfAlbums = listOf(dummyPlaylistIcon1, dummyPlaylistIcon2)
-//
-//        return artistItem
-//    }
-
-
-    private fun displayArtistInfo(artistItem: ArtistItem) {
-        binding.artistFragmentArtistName.text = artistItem.name
-        // Cần thiết lập ảnh cho avatar và background ở đây nếu bạn muốn
-
-        binding.artistFragmentAlbumsRecyclerView.apply {
-            adapter = topPlaylistsAdapter
-            // Cập nhật dữ liệu cho adapter
-            //topPlaylistsAdapter.submitList(artist.listOfAlbums)
-        }
-
-        binding.artistFragmentTracksRecyclerView.apply {
-            adapter = trackListAdapter
-            // Cập nhật dữ liệu cho adapter
-            trackListAdapter.submitList(artistItem.listOfTrackItems)
-        }
     }
 }
