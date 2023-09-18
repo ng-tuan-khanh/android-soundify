@@ -28,6 +28,14 @@ class YourLibraryFragment : Fragment() {
                     this.findNavController().navigate(action)
                 }
 
+                ItemType.Album -> {
+                    val action =
+                        YourLibraryFragmentDirections.actionLibraryFragmentToPlaylistDetailFragment(
+                            item.id, ItemType.Album
+                        )
+                    this.findNavController().navigate(action)
+                }
+
                 ItemType.Artist -> {
                     val action =
                         YourLibraryFragmentDirections.actionLibraryFragmentToArtistProfileFragment(

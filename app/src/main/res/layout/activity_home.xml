@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#191414"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -18,68 +18,68 @@
         android:id="@+id/streaming_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_above="@+id/bottomNavigationView">
+        android:layout_above="@+id/bottomNavigationView"
+        android:orientation="vertical">
 
         <!-- Streaming bar layout components -->
-        <RelativeLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/streaming_bar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/rounded_streaming_bar"
-            android:visibility="visible"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-            <!-- Your streaming bar components like song name, play/pause button etc. -->
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="8dp"
+            android:visibility="visible">
 
-            <ImageView
-                android:id="@+id/streaming_song_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_home"
-                android:scaleType="fitCenter"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/streaming_song_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="8dp"
+                    android:scaleType="fitCenter"
+                    tools:src="@tools:sample/avatars" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/streaming_song_image"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/streaming_song_name"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ten bai hat"
-                    android:textSize="18sp"
-                    android:textColor="@color/appWhite"/>
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/streaming_song_image"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/streaming_song_artist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ten ca si"
-                    android:textSize="14sp"
-                    android:textColor="@color/appWhite"/>
+                    <TextView
+                        android:id="@+id/streaming_song_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        tools:text="Name" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/streaming_song_artist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        tools:text="Artist" />
 
-            <ImageButton
-                android:id="@+id/streaming_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/selector_play_pause"
-                android:layout_marginRight="8dp"
-                android:layout_centerVertical="true"
-                android:scaleType="fitCenter"
-                android:background="#282828"/>
+                </LinearLayout>
 
-        </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/streaming_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="8dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/selector_play_pause"
+                    android:tint="@color/material_dynamic_neutral_variant80" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
@@ -88,7 +88,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#191414"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>
