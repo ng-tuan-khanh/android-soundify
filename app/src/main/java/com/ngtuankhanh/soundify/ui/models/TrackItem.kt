@@ -4,5 +4,6 @@ data class TrackItem (
     val id: String,
     val name: String,
     val artists: List<String>,
-    val imageUrl: String
+    val imageUrl: String,
+    val previewUrl: String
 )

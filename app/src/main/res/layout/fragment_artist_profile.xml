@@ -8,7 +8,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp">
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp">
 
         <!-- Up Button -->
         <androidx.appcompat.widget.AppCompatImageButton
@@ -28,13 +30,15 @@
         <!-- This is your artist background image -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/artist_image"
-            android:layout_width="match_parent"
-            android:layout_height="264dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="50dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/artist_name_text"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/up_button"
-            tools:layout_editor_absoluteX="50dp"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <!-- Track Title -->

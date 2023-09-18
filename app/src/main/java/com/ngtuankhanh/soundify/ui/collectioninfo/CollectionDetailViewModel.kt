@@ -39,7 +39,8 @@ class CollectionDetailViewModel(activity: BaseActivity?) : ViewModel() {
                                     track.id,
                                     track.name,
                                     track.artists.map { it.name },
-                                    track.album.images[0].url
+                                    track.album.images[0].url,
+                                    track.previewUrl ?: ""
                                 )
                             )
                         }
@@ -64,7 +65,8 @@ class CollectionDetailViewModel(activity: BaseActivity?) : ViewModel() {
                                     it.id,
                                     it.name,
                                     it.artists.map { it.name },
-                                    it.album.images[0].url
+                                    it.album.images[0].url,
+                                    it.previewUrl ?: ""
                                 )
                             )
                         }

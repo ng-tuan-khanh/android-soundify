@@ -52,7 +52,8 @@ class ArtistProfileViewModel(activity: BaseActivity?) : ViewModel() {
                             track.id,
                             track.name,
                             track.artists.map { it.name },
-                            track.album.images[0].url
+                            track.album.images[0].url,
+                            track.previewUrl ?: ""
                         )
                     )
                 }

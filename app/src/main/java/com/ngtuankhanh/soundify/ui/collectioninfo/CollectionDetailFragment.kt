@@ -54,7 +54,11 @@ class CollectionDetailFragment : Fragment() {
 
         // Set up the recycler view
         binding.trackRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = object : LinearLayoutManager(context) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
             adapter = trackListAdapter
         }
 

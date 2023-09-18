@@ -4,8 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.findNavController
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.ui.setupWithNavController
@@ -14,12 +12,13 @@ import com.ngtuankhanh.soundify.R
 import com.ngtuankhanh.soundify.databinding.ActivityHomeBinding
 import com.ngtuankhanh.soundify.ui.models.TrackItem
 import com.ngtuankhanh.soundify.ui.musicplayer.PlayerState
+import com.ngtuankhanh.soundify.utils.toast
 
 class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     var playerState = PlayerState.PAUSED
     lateinit var player: ExoPlayer
-    var currentTrack: TrackItem ?= null
+    var currentTrack: TrackItem? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,6 +31,10 @@ class HomeActivity : BaseActivity() {
 
         binding.streamingButton.setOnClickListener {
             playerState = if (playerState == PlayerState.PAUSED) {
+                if (currentTrack?.previewUrl == "") {
+                    toast("Track not available")
+                    return@setOnClickListener
+                }
                 player.play()
                 binding.streamingButton.setImageResource(R.drawable.pause_circle_fill)
                 PlayerState.PLAYING
@@ -44,7 +47,7 @@ class HomeActivity : BaseActivity() {
 
         binding.streamingBar.setOnClickListener {
             if (currentTrack == null) {
-                Toast.makeText(this,"No song stream right now!", Toast.LENGTH_SHORT).show()
+                toast("No track is playing")
             } else {
                 val deepLinkUri = Uri.parse("soundify://musicplayer")
                 findNavController(R.id.nav_host_fragment).navigate(deepLinkUri)
@@ -62,6 +65,16 @@ class HomeActivity : BaseActivity() {
         hideNavigationBar()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
     private fun hideNavigationBar() {
         val decorView = window.decorView
         val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
@@ -71,35 +84,34 @@ class HomeActivity : BaseActivity() {
     }
 
     fun changeCurrentTrack(track: TrackItem) {
-        if (binding.streamingBar.visibility == View.GONE)
-            showStreamingBar()
+        if (binding.streamingBar.visibility == View.GONE) showStreamingBar()
+
         Glide.with(binding.root)
             .load(track.imageUrl)
             .into(binding.streamingSongImage)
+
         currentTrack = track
         binding.streamingSongName.text = track.name
         binding.streamingSongArtist.text = track.artists.joinToString(", ")
-        val mediaItem =
-            MediaItem.fromUri("https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3")
+        binding.streamingButton.setImageResource(R.drawable.pause_circle_fill)
+
+        if (currentTrack?.previewUrl == "") {
+            toast("Track not available")
+            return
+        }
+
+        val mediaItem = MediaItem.fromUri(track.previewUrl)
         player.setMediaItem(mediaItem)
         player.prepare()
         player.play()
         playerState = PlayerState.PLAYING
-        binding.streamingButton.setImageResource(R.drawable.pause_circle_fill)
     }
 
-    // Function to show the streaming bar
     fun showStreamingBar() {
         binding.streamingBar.visibility = View.VISIBLE
     }
 
-    // Function to hide the streaming bar
     fun hideStreamingBar() {
         binding.streamingBar.visibility = View.GONE
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

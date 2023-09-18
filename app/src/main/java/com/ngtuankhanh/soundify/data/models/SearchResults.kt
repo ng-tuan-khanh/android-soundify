@@ -42,6 +42,7 @@ data class SearchResults (
                 id = it.id,
                 artists = it.artists.map { it.name },
                 imageUrl = it.album.images.firstOrNull()?.url ?: "",
+                previewUrl = it.previewUrl ?: "",
                 type = ItemType.Track
             )
         }).shuffled()

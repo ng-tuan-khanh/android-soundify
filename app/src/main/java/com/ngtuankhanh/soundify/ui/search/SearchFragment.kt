@@ -28,8 +28,14 @@ class SearchFragment : Fragment(), OnSearchItemClickListener {
     private lateinit var binding: FragmentSearchBinding
 
     override fun onTrackClicked(track: Item) {
-        val _track = TrackItem(id = track.id, name = track.name, artists = track.artists, imageUrl = track.imageUrl)
-       (requireActivity() as HomeActivity).changeCurrentTrack(_track)
+        val _track = TrackItem(
+            id = track.id,
+            name = track.name,
+            artists = track.artists,
+            imageUrl = track.imageUrl,
+            previewUrl = track.previewUrl
+        )
+        (requireActivity() as HomeActivity).changeCurrentTrack(_track)
     }
 
     override fun onArtistClicked(artist: Item) {
