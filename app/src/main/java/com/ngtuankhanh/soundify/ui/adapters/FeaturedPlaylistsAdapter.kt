@@ -9,8 +9,7 @@ import com.bumptech.glide.Glide
 import com.ngtuankhanh.soundify.ui.models.CollectionItem
 
 class FeaturedPlaylistsAdapter(
-    private val onPlaylistClick: (CollectionItem) -> Unit,
-    private val onPlayClick: () -> Unit
+    private val onPlaylistClick: (CollectionItem) -> Unit
 ) : ListAdapter<CollectionItem, FeaturedPlaylistsAdapter.FeaturedPlaylistsViewHolder>(TrackCollectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeaturedPlaylistsViewHolder {
@@ -30,15 +29,10 @@ class FeaturedPlaylistsAdapter(
                     onPlaylistClick(getItem(position))
                 }
             }
-
-            binding.playButton.setOnClickListener {
-                onPlayClick()
-            }
         }
 
         fun bind(collectionItem: CollectionItem) {
             binding.apply {
-                trackNameText.text = collectionItem.name
                 albumNameText.text = collectionItem.name
                 artistName.text = collectionItem.artistName
                 trackCountText.text = "${collectionItem.totalTracks} tracks"

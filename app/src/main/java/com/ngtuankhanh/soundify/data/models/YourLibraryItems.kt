@@ -47,6 +47,6 @@ data class YourLibraryItems(
                 type = ItemType.Artist
             )
         })
-        return items.shuffled()
+        return items
     }
 }
