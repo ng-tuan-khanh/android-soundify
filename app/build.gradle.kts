@@ -59,6 +59,7 @@ android {
                 "SPOTIFY_REDIRECT_URI_PKCE",
                 "\"soundify://spotify-pkce\""
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
