@@ -1,5 +1,5 @@
 ## Information
-Soundify is a clone of the famous music streaming app Spotify. This app provides the basic functions of a music streaming app, including recommending tracks, searching, viewing collection and artist information, and playing tracks.
+This app is a music streaming app using the Spotify Web APIs. Its functions include recommending tracks, searching, viewing collection and artist information, and playing tracks.
 ## Techniques and implementations
 -	The app is developed using the **Kotlin** programming language, and **View-based XML** as its UI framework.
 -	The app architecture follows the structure of hosting multiple fragments in a single activity.
@@ -7,6 +7,7 @@ Soundify is a clone of the famous music streaming app Spotify. This app provides
 -	The app handles the data requests to and responses from the Spotify server asynchronously using **Kotlin coroutines, flows and StateFlows**.
 -	This app uses **Navigation component and deep links** to handle the navigations between fragments and between the hosting activity and its fragments.
 -	This app uses **Media3 ExoPlayer** to stream music and **Glide** to fetch artworks from URLs.
+-	This app uses [**spotify-web-api-kotlin**](https://github.com/adamint/spotify-web-api-kotlin) by adamint to handle requesting and fetching data from Spotify APIs.
 ## Screenshots
 <p float="left" align="middle">
   <img src="screenshots/home.png" width="16%" />
