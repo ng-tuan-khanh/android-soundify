@@ -18,4 +18,7 @@ This app is a music streaming app using the Spotify Web APIs. Its functions incl
   <img src="screenshots/music_player.png" width="16%" />
 </p>
 
+## Setting up
+As per the Spotify policies of using the Web API, personal projects must add users to a list of registered users for them to successfully authenticate into the app. Therefore, the limitation is that to test the app, we must add the users to the Spotify dashboard by hand. If you want to test the app, please contact us.
+
 
